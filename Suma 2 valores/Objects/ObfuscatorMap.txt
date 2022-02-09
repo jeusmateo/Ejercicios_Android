@@ -1,0 +1,4 @@
+Este fichero contiene las variables renombradas con los originales.
+v5=xui
+v6=starter
+v7=main

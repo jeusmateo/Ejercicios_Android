@@ -336,10 +336,10 @@ public class main extends Activity implements B4AActivity{
     }
 
 public anywheresoftware.b4a.keywords.Common __c = null;
-public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
+public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _v5 = null;
 public anywheresoftware.b4a.objects.EditTextWrapper _txt1 = null;
 public anywheresoftware.b4a.objects.EditTextWrapper _txt2 = null;
-public b4a.example.starter _starter = null;
+public b4a.example.starter _v6 = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
@@ -364,14 +364,37 @@ return "";
 }
 public static String  _btnsumar_click() throws Exception{
 float _resultado = 0f;
+int _num1 = 0;
+int _num2 = 0;
  //BA.debugLineNum = 39;BA.debugLine="Private Sub btnSumar_Click";
- //BA.debugLineNum = 40;BA.debugLine="Dim resultado As Float";
+ //BA.debugLineNum = 41;BA.debugLine="If (txt1.Text == \"\" Or txt2.Text == \"\") Then";
+if (((mostCurrent._txt1.getText()).equals("") || (mostCurrent._txt2.getText()).equals(""))) { 
+ //BA.debugLineNum = 42;BA.debugLine="MsgboxAsync(\"Debe digitar ambos numeros\", \"Error";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Debe digitar ambos numeros"),BA.ObjectToCharSequence("Error"),processBA);
+ //BA.debugLineNum = 43;BA.debugLine="Return";
+if (true) return "";
+ };
+ //BA.debugLineNum = 46;BA.debugLine="If (IsNumber(txt1.Text) == False Or IsNumber(txt2";
+if ((anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt1.getText())==anywheresoftware.b4a.keywords.Common.False || anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt2.getText())==anywheresoftware.b4a.keywords.Common.False)) { 
+ //BA.debugLineNum = 47;BA.debugLine="MsgboxAsync(\"Escriba un digito valido\", \"Error\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Escriba un digito valido"),BA.ObjectToCharSequence("Error"),processBA);
+ //BA.debugLineNum = 48;BA.debugLine="Return";
+if (true) return "";
+ };
+ //BA.debugLineNum = 52;BA.debugLine="Dim resultado As Float";
 _resultado = 0f;
- //BA.debugLineNum = 42;BA.debugLine="resultado = txt1.Text + txt2.Text";
-_resultado = (float) ((double)(Double.parseDouble(mostCurrent._txt1.getText()))+(double)(Double.parseDouble(mostCurrent._txt2.getText())));
- //BA.debugLineNum = 44;BA.debugLine="MsgboxAsync (\"El resultado es \" & resultado, \"Res";
+ //BA.debugLineNum = 53;BA.debugLine="Dim num1, num2 As Int";
+_num1 = 0;
+_num2 = 0;
+ //BA.debugLineNum = 55;BA.debugLine="num1 = txt1.Text";
+_num1 = (int)(Double.parseDouble(mostCurrent._txt1.getText()));
+ //BA.debugLineNum = 56;BA.debugLine="num2 = txt2.Text";
+_num2 = (int)(Double.parseDouble(mostCurrent._txt2.getText()));
+ //BA.debugLineNum = 58;BA.debugLine="resultado = num1 + num2";
+_resultado = (float) (_num1+_num2);
+ //BA.debugLineNum = 60;BA.debugLine="MsgboxAsync (\"El resultado es \" & resultado, \"Res";
 anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("El resultado es "+BA.NumberToString(_resultado)),BA.ObjectToCharSequence("Resultado"),processBA);
- //BA.debugLineNum = 46;BA.debugLine="End Sub";
+ //BA.debugLineNum = 62;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -396,10 +419,52 @@ starter._process_globals();
 			throw new RuntimeException(e);
 		}
     }
-}public static String  _process_globals() throws Exception{
+}
+
+private static byte[][] bb;
+
+public static String vvv13(final byte[] _b, final int i) throws Exception {
+Runnable r = new Runnable() {
+{
+
+int value = i / 9 + 504024;
+if (bb == null) {
+		
+                bb = new byte[4][];
+				bb[0] = BA.packageName.getBytes("UTF8");
+                bb[1] = BA.applicationContext.getPackageManager().getPackageInfo(BA.packageName, 0).versionName.getBytes("UTF8");
+                if (bb[1].length == 0)
+                    bb[1] = "jsdkfh".getBytes("UTF8");
+                bb[2] = new byte[] { (byte)BA.applicationContext.getPackageManager().getPackageInfo(BA.packageName, 0).versionCode };			
+        }
+        bb[3] = new byte[] {
+                    (byte) (value >>> 24),
+						(byte) (value >>> 16),
+						(byte) (value >>> 8),
+						(byte) value};
+				try {
+					for (int __b = 0;__b < (3 + 1);__b ++) {
+						for (int b = 0;b<_b.length;b++) {
+							_b[b] ^= bb[__b][b % bb[__b].length];
+						}
+					}
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+                
+
+            
+}
+public void run() {
+}
+};
+return new String(_b, "UTF8");
+}
+public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 18;BA.debugLine="Private xui As XUI";
-_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
+_v5 = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
  //BA.debugLineNum = 19;BA.debugLine="End Sub";
 return "";
 }
