@@ -9,7 +9,7 @@ Module1=Starter
 NumberOfFiles=1
 NumberOfLibraries=2
 NumberOfModules=1
-Version=9.9
+Version=11.2
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: B4A Example
@@ -33,6 +33,8 @@ End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
+	Private txt1 As EditText
+	Private txt2 As EditText
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -47,6 +49,11 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Sub Button1_Click
-	xui.MsgboxAsync("Hello world!", "B4X")
+Private Sub btnSumar_Click
+	Dim resultado As Float
+	
+	resultado = txt1.Text + txt2.Text
+	
+	MsgboxAsync ("El resultado es " & resultado, "Resultado")
+	
 End Sub
