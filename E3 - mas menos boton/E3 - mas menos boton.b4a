@@ -33,10 +33,14 @@ End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
+	Private txtNum As EditText
+	Dim num As Int
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
+	
 End Sub
 
 Sub Activity_Resume
@@ -47,6 +51,23 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Sub Button1_Click
-	xui.MsgboxAsync("Hello world!", "B4X")
+
+Private Sub btnRestar_Click
+	
+	If (txtNum.Text == "") Then
+		txtNum.Text = 1
+	End If
+	
+	num = txtNum.Text
+	txtNum.Text = num - 1
+
+End Sub
+
+Private Sub btnSumar_Click
+	If (txtNum.Text == "") Then
+		txtNum.Text = 0
+	End If
+	
+	num = txtNum.Text
+	txtNum.Text = num + 1
 End Sub
