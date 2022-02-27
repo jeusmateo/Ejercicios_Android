@@ -1,0 +1,129 @@
+﻿Build1=Default,b4a.example
+File1=dado0.png
+File10=Perdido.png
+File2=dado1.png
+File3=dado2.png
+File4=dado3.png
+File5=dado4.png
+File6=dado5.png
+File7=dado6.png
+File8=Ganado.png
+File9=Layout.bal
+FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=10
+NumberOfLibraries=2
+NumberOfModules=1
+Version=11.2
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Tiro de Dados
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private imgDado1 As ImageView
+	Private imgDado2 As ImageView
+	Private imgMensaje As ImageView
+	
+	Private intentos As Int
+	
+	Private lblIntentois As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub Button1_Click
+	xui.MsgboxAsync("Hello world!", "B4X")
+End Sub
+
+Private Sub setImgDado(numDado As Byte, imgView As ImageView)
+	
+	Select numDado
+		Case 1
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado1.png"))
+			
+		Case 2
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado2.png"))
+
+		Case 3
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado3.png"))
+
+		Case 4
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado4.png"))
+						
+		Case 5
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado5.png"))
+							
+		Case 6
+			imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "dado6.png"))
+								
+								
+	End Select
+End Sub
+
+Private Sub btnPlay_Click
+	Dim suma As Byte
+	
+	Private rand1, rand2 As Byte
+	
+	rand1 = Rnd(1, 7)
+	rand2 = Rnd(1, 7)
+	
+	suma = rand1 + rand2
+	
+	
+	imgMensaje.Visible = True
+	
+	If suma == 7 Then
+		imgMensaje.SetBackgroundImage(LoadBitmap(File.DirAssets, "Ganado.png"))
+	Else
+		imgMensaje.SetBackgroundImage(LoadBitmap(File.DirAssets, "Perdido.png"))		
+	End If
+	
+	setImgDado(rand1, imgDado1)
+	setImgDado(rand2, imgDado2)
+	
+	intentos = intentos + 1 
+	lblIntentois.Text = "Intentos: " & intentos
+	
+End Sub
