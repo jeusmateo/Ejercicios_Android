@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=1,2
 ModuleClosedNodes1=1
-NavigationStack=Main,Process_Globals,17,4,Main,Globals,26,6,Main,Activity_Create,29,6,Main,Activity_Resume,33,0,Diseñador Visual,Layout.bal,-100,6,Main,Activity_Pause,39,0,Main,btnRestar_Click,43,6,Main,btnSumar_Click,55,0
+NavigationStack=Main,Process_Globals,17,4,Main,Globals,26,6,Main,Activity_Create,29,6,Main,Activity_Resume,33,0,Main,Activity_Pause,39,0,Main,btnSumar_Click,55,0,Main,btnRestar_Click,45,6
 SelectedBuild=0
 VisibleModules=1

@@ -1,4 +1,4 @@
-package b4a.example;
+package om.adivnum;
 
 
 import anywheresoftware.b4a.B4AMenuItem;
@@ -34,7 +34,7 @@ public class main extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
+			processBA = new BA(this.getApplicationContext(), null, null, "om.adivnum", "om.adivnum.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -86,7 +86,7 @@ public class main extends Activity implements B4AActivity{
 	private void afterFirstLayout() {
         if (this != mostCurrent)
 			return;
-		activityBA = new BA(this, layout, processBA, "b4a.example", "b4a.example.main");
+		activityBA = new BA(this, layout, processBA, "om.adivnum", "om.adivnum.main");
         
         processBA.sharedProcessBA.activityBA = new java.lang.ref.WeakReference<BA>(activityBA);
         anywheresoftware.b4a.objects.ViewWrapper.lastId = 0;
@@ -95,7 +95,7 @@ public class main extends Activity implements B4AActivity{
         if (BA.isShellModeRuntimeCheck(processBA)) {
 			if (isFirst)
 				processBA.raiseEvent2(null, true, "SHELL", false);
-			processBA.raiseEvent2(null, true, "CREATE", true, "b4a.example.main", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
+			processBA.raiseEvent2(null, true, "CREATE", true, "om.adivnum.main", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
 			_activity.reinitializeForShell(activityBA, "activity");
 		}
         initializeProcessGlobals();		
@@ -337,73 +337,174 @@ public class main extends Activity implements B4AActivity{
 
 public anywheresoftware.b4a.keywords.Common __c = null;
 public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
-public anywheresoftware.b4a.objects.EditTextWrapper _txt1 = null;
-public anywheresoftware.b4a.objects.EditTextWrapper _txt2 = null;
-public b4a.example.starter _starter = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _txtp1 = null;
+public anywheresoftware.b4a.objects.EditTextWrapper _txtp2 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblmensajes = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblp1 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblp2 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _btnp1 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _btnp2 = null;
+public static byte _randomn = (byte)0;
+public static byte _turn = (byte)0;
+public anywheresoftware.b4a.objects.ButtonWrapper _btnplay = null;
+public om.adivnum.starter _starter = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
 vis = vis | (main.mostCurrent != null);
 return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 27;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 28;BA.debugLine="Activity.LoadLayout(\"Layout\")";
+ //BA.debugLineNum = 39;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 40;BA.debugLine="Activity.LoadLayout(\"Layout\")";
 mostCurrent._activity.LoadLayout("Layout",mostCurrent.activityBA);
- //BA.debugLineNum = 29;BA.debugLine="End Sub";
+ //BA.debugLineNum = 42;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 35;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 37;BA.debugLine="End Sub";
+ //BA.debugLineNum = 48;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 50;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 31;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 33;BA.debugLine="End Sub";
+ //BA.debugLineNum = 44;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 46;BA.debugLine="End Sub";
 return "";
 }
-public static String  _btnsumar_click() throws Exception{
-float _resultado = 0f;
-int _num1 = 0;
-int _num2 = 0;
- //BA.debugLineNum = 39;BA.debugLine="Private Sub btnSumar_Click";
- //BA.debugLineNum = 41;BA.debugLine="If (txt1.Text == \"\" Or txt2.Text == \"\") Then";
-if (((mostCurrent._txt1.getText()).equals("") || (mostCurrent._txt2.getText()).equals(""))) { 
- //BA.debugLineNum = 42;BA.debugLine="MsgboxAsync(\"Debe digitar ambos numeros\", \"Error";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Debe digitar ambos numeros"),BA.ObjectToCharSequence("Error"),processBA);
- //BA.debugLineNum = 43;BA.debugLine="Return";
+public static String  _btnp1_click() throws Exception{
+int _inputplayer = 0;
+ //BA.debugLineNum = 121;BA.debugLine="Private Sub btnP1_Click";
+ //BA.debugLineNum = 122;BA.debugLine="Dim inputPlayer As Int";
+_inputplayer = 0;
+ //BA.debugLineNum = 124;BA.debugLine="inputPlayer = txtP1.Text";
+_inputplayer = (int)(Double.parseDouble(mostCurrent._txtp1.getText()));
+ //BA.debugLineNum = 126;BA.debugLine="CheckNum(inputPlayer, \"JUGADOR 1\")";
+_checknum(_inputplayer,"JUGADOR 1");
+ //BA.debugLineNum = 127;BA.debugLine="txtP1.Text = \"\"";
+mostCurrent._txtp1.setText(BA.ObjectToCharSequence(""));
+ //BA.debugLineNum = 128;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnp2_click() throws Exception{
+int _inputplayer = 0;
+ //BA.debugLineNum = 130;BA.debugLine="Private Sub btnP2_Click";
+ //BA.debugLineNum = 131;BA.debugLine="Dim inputPlayer As Int";
+_inputplayer = 0;
+ //BA.debugLineNum = 133;BA.debugLine="inputPlayer = txtP2.Text";
+_inputplayer = (int)(Double.parseDouble(mostCurrent._txtp2.getText()));
+ //BA.debugLineNum = 135;BA.debugLine="CheckNum(inputPlayer, \"JUGADOR 2\")";
+_checknum(_inputplayer,"JUGADOR 2");
+ //BA.debugLineNum = 136;BA.debugLine="txtP2.Text = \"\"";
+mostCurrent._txtp2.setText(BA.ObjectToCharSequence(""));
+ //BA.debugLineNum = 137;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnplay_click() throws Exception{
+ //BA.debugLineNum = 73;BA.debugLine="Private Sub btnPlay_Click";
+ //BA.debugLineNum = 74;BA.debugLine="btnPlay.Visible = False";
+mostCurrent._btnplay.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 75;BA.debugLine="P1Visible(True)";
+_p1visible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 76;BA.debugLine="txtP1.RequestFocus";
+mostCurrent._txtp1.RequestFocus();
+ //BA.debugLineNum = 77;BA.debugLine="turn = 1";
+_turn = (byte) (1);
+ //BA.debugLineNum = 79;BA.debugLine="lblMensajes.Text = \"\"";
+mostCurrent._lblmensajes.setText(BA.ObjectToCharSequence(""));
+ //BA.debugLineNum = 81;BA.debugLine="randomN = Rnd(1, 101)";
+_randomn = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (101)));
+ //BA.debugLineNum = 82;BA.debugLine="Log(randomN)";
+anywheresoftware.b4a.keywords.Common.LogImpl("3983049",BA.NumberToString(_randomn),0);
+ //BA.debugLineNum = 84;BA.debugLine="End Sub";
+return "";
+}
+public static String  _checknum(int _num,String _pturnname) throws Exception{
+ //BA.debugLineNum = 86;BA.debugLine="Private Sub CheckNum(num As Int, pTurnName As Stri";
+ //BA.debugLineNum = 88;BA.debugLine="Log(pTurnName & \" - \" & num)";
+anywheresoftware.b4a.keywords.Common.LogImpl("35767170",_pturnname+" - "+BA.NumberToString(_num),0);
+ //BA.debugLineNum = 89;BA.debugLine="If num == randomN Then";
+if (_num==_randomn) { 
+ //BA.debugLineNum = 90;BA.debugLine="GameOver(pTurnName)";
+_gameover(_pturnname);
+ //BA.debugLineNum = 91;BA.debugLine="Return";
 if (true) return "";
  };
- //BA.debugLineNum = 46;BA.debugLine="If (IsNumber(txt1.Text) == False Or IsNumber(txt2";
-if ((anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt1.getText())==anywheresoftware.b4a.keywords.Common.False || anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt2.getText())==anywheresoftware.b4a.keywords.Common.False)) { 
- //BA.debugLineNum = 47;BA.debugLine="MsgboxAsync(\"Escriba un digito valido\", \"Error\")";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Escriba un digito valido"),BA.ObjectToCharSequence("Error"),processBA);
- //BA.debugLineNum = 48;BA.debugLine="Return";
-if (true) return "";
+ //BA.debugLineNum = 94;BA.debugLine="If num < randomN Then";
+if (_num<_randomn) { 
+ //BA.debugLineNum = 95;BA.debugLine="MsgboxAsync(\"El numero es mayor\", \"!!!\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("El numero es mayor"),BA.ObjectToCharSequence("!!!"),processBA);
+ //BA.debugLineNum = 96;BA.debugLine="lblMensajes.Text = \"El numero es mayor\"";
+mostCurrent._lblmensajes.setText(BA.ObjectToCharSequence("El numero es mayor"));
+ }else if(_num>_randomn) { 
+ //BA.debugLineNum = 99;BA.debugLine="MsgboxAsync(\"El numero es menor\", \"!!!\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("El numero es menor"),BA.ObjectToCharSequence("!!!"),processBA);
+ //BA.debugLineNum = 100;BA.debugLine="lblMensajes.Text = \"El numero es menor\"";
+mostCurrent._lblmensajes.setText(BA.ObjectToCharSequence("El numero es menor"));
  };
- //BA.debugLineNum = 52;BA.debugLine="Dim resultado As Float";
-_resultado = 0f;
- //BA.debugLineNum = 53;BA.debugLine="Dim num1, num2 As Int";
-_num1 = 0;
-_num2 = 0;
- //BA.debugLineNum = 55;BA.debugLine="num1 = txt1.Text";
-_num1 = (int)(Double.parseDouble(mostCurrent._txt1.getText()));
- //BA.debugLineNum = 56;BA.debugLine="num2 = txt2.Text";
-_num2 = (int)(Double.parseDouble(mostCurrent._txt2.getText()));
- //BA.debugLineNum = 58;BA.debugLine="resultado = num1 + num2";
-_resultado = (float) (_num1+_num2);
- //BA.debugLineNum = 60;BA.debugLine="MsgboxAsync (\"El resultado es \" & resultado, \"Res";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("El resultado es "+BA.NumberToString(_resultado)),BA.ObjectToCharSequence("Resultado"),processBA);
- //BA.debugLineNum = 62;BA.debugLine="End Sub";
+ //BA.debugLineNum = 103;BA.debugLine="turnChange";
+_turnchange();
+ //BA.debugLineNum = 105;BA.debugLine="End Sub";
+return "";
+}
+public static String  _gameover(String _pwinner) throws Exception{
+ //BA.debugLineNum = 52;BA.debugLine="Private Sub GameOver(pWinner As String)";
+ //BA.debugLineNum = 53;BA.debugLine="MsgboxAsync(\"HAS GANADO \" & pWinner, \"GAME OVER\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("HAS GANADO "+_pwinner),BA.ObjectToCharSequence("GAME OVER"),processBA);
+ //BA.debugLineNum = 54;BA.debugLine="lblMensajes.Text = \"GANADOR \" & pWinner";
+mostCurrent._lblmensajes.setText(BA.ObjectToCharSequence("GANADOR "+_pwinner));
+ //BA.debugLineNum = 55;BA.debugLine="P1Visible(False)";
+_p1visible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 56;BA.debugLine="P2Visible(False)";
+_p2visible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 57;BA.debugLine="btnPlay.Visible = True";
+mostCurrent._btnplay.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 59;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
  //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 23;BA.debugLine="Private txt1 As EditText";
-mostCurrent._txt1 = new anywheresoftware.b4a.objects.EditTextWrapper();
- //BA.debugLineNum = 24;BA.debugLine="Private txt2 As EditText";
-mostCurrent._txt2 = new anywheresoftware.b4a.objects.EditTextWrapper();
- //BA.debugLineNum = 25;BA.debugLine="End Sub";
+ //BA.debugLineNum = 23;BA.debugLine="Private txtP1 As EditText";
+mostCurrent._txtp1 = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 24;BA.debugLine="Private txtP2 As EditText";
+mostCurrent._txtp2 = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 25;BA.debugLine="Private lblMensajes As Label";
+mostCurrent._lblmensajes = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 26;BA.debugLine="Private lblP1 As Label";
+mostCurrent._lblp1 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 27;BA.debugLine="Private lblP2 As Label";
+mostCurrent._lblp2 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 28;BA.debugLine="Private btnP1 As Button";
+mostCurrent._btnp1 = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 29;BA.debugLine="Private btnP2 As Button";
+mostCurrent._btnp2 = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 31;BA.debugLine="Private randomN As Byte";
+_randomn = (byte)0;
+ //BA.debugLineNum = 33;BA.debugLine="Private turn As Byte";
+_turn = (byte)0;
+ //BA.debugLineNum = 35;BA.debugLine="Private btnPlay As Button";
+mostCurrent._btnplay = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 37;BA.debugLine="End Sub";
+return "";
+}
+public static String  _p1visible(boolean _bool) throws Exception{
+ //BA.debugLineNum = 61;BA.debugLine="Private Sub P1Visible(bool As Boolean)";
+ //BA.debugLineNum = 62;BA.debugLine="lblP1.Visible = bool";
+mostCurrent._lblp1.setVisible(_bool);
+ //BA.debugLineNum = 63;BA.debugLine="txtP1.Visible = bool";
+mostCurrent._txtp1.setVisible(_bool);
+ //BA.debugLineNum = 64;BA.debugLine="btnP1.Visible = bool";
+mostCurrent._btnp1.setVisible(_bool);
+ //BA.debugLineNum = 65;BA.debugLine="End Sub";
+return "";
+}
+public static String  _p2visible(boolean _bool) throws Exception{
+ //BA.debugLineNum = 67;BA.debugLine="Private Sub P2Visible(bool As Boolean)";
+ //BA.debugLineNum = 68;BA.debugLine="lblP2.Visible = bool";
+mostCurrent._lblp2.setVisible(_bool);
+ //BA.debugLineNum = 69;BA.debugLine="txtP2.Visible = bool";
+mostCurrent._txtp2.setVisible(_bool);
+ //BA.debugLineNum = 70;BA.debugLine="btnP2.Visible = bool";
+mostCurrent._btnp2.setVisible(_bool);
+ //BA.debugLineNum = 71;BA.debugLine="End Sub";
 return "";
 }
 
@@ -424,6 +525,31 @@ starter._process_globals();
  //BA.debugLineNum = 18;BA.debugLine="Private xui As XUI";
 _xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
  //BA.debugLineNum = 19;BA.debugLine="End Sub";
+return "";
+}
+public static String  _turnchange() throws Exception{
+ //BA.debugLineNum = 107;BA.debugLine="Private Sub turnChange()";
+ //BA.debugLineNum = 108;BA.debugLine="If turn == 1 Then";
+if (_turn==1) { 
+ //BA.debugLineNum = 109;BA.debugLine="turn = 2";
+_turn = (byte) (2);
+ //BA.debugLineNum = 110;BA.debugLine="P1Visible(False)";
+_p1visible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 111;BA.debugLine="P2Visible(True)";
+_p2visible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 112;BA.debugLine="txtP2.RequestFocus";
+mostCurrent._txtp2.RequestFocus();
+ }else {
+ //BA.debugLineNum = 114;BA.debugLine="turn = 1";
+_turn = (byte) (1);
+ //BA.debugLineNum = 115;BA.debugLine="P1Visible(True)";
+_p1visible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 116;BA.debugLine="P2Visible(False)";
+_p2visible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 117;BA.debugLine="txtP1.RequestFocus";
+mostCurrent._txtp1.RequestFocus();
+ };
+ //BA.debugLineNum = 119;BA.debugLine="End Sub";
 return "";
 }
 }

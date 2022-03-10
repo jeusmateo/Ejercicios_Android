@@ -400,7 +400,7 @@ _count = (byte) (0);
  //BA.debugLineNum = 88;BA.debugLine="lblCount.Text = \"Aciertos: \" & count";
 mostCurrent._lblcount.setText(BA.ObjectToCharSequence("Aciertos: "+BA.NumberToString(_count)));
  //BA.debugLineNum = 89;BA.debugLine="Log(rand)";
-anywheresoftware.b4a.keywords.Common.LogImpl("6786436",BA.NumberToString(_rand),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("4524292",BA.NumberToString(_rand),0);
  //BA.debugLineNum = 91;BA.debugLine="ButtonsVisibility(True)";
 _buttonsvisibility(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 92;BA.debugLine="btnPlay.Visible = False";

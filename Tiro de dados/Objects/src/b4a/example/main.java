@@ -34,7 +34,7 @@ public class main extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
+			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -335,47 +335,6 @@ public class main extends Activity implements B4AActivity{
             
     }
 
-
-
-public static void initializeProcessGlobals() {
-    
-    if (main.processGlobalsRun == false) {
-	    main.processGlobalsRun = true;
-		try {
-		        		
-        } catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-    }
-}
-public static boolean isAnyActivityVisible() {
-    boolean vis = false;
-vis = vis | (main.mostCurrent != null);
-return vis;}
-
-private static BA killProgramHelper(BA ba) {
-    if (ba == null)
-        return null;
-    anywheresoftware.b4a.BA.SharedProcessBA sharedProcessBA = ba.sharedProcessBA;
-    if (sharedProcessBA == null || sharedProcessBA.activityBA == null)
-        return null;
-    return sharedProcessBA.activityBA.get();
-}
-public static void killProgram() {
-     {
-            Activity __a = null;
-            if (main.previousOne != null) {
-				__a = main.previousOne.get();
-			}
-            else {
-                BA ba = killProgramHelper(main.mostCurrent == null ? null : main.mostCurrent.processBA);
-                if (ba != null) __a = ba.activity;
-            }
-            if (__a != null)
-				__a.finish();}
-
-BA.applicationContext.stopService(new android.content.Intent(BA.applicationContext, starter.class));
-}
 public anywheresoftware.b4a.keywords.Common __c = null;
 public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _imgdado1 = null;
@@ -384,148 +343,138 @@ public anywheresoftware.b4a.objects.ImageViewWrapper _imgmensaje = null;
 public static int _intentos = 0;
 public anywheresoftware.b4a.objects.LabelWrapper _lblintentois = null;
 public b4a.example.starter _starter = null;
+
+public static boolean isAnyActivityVisible() {
+    boolean vis = false;
+vis = vis | (main.mostCurrent != null);
+return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
-RDebugUtils.currentModule="main";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
-RDebugUtils.currentLine=131072;
- //BA.debugLineNum = 131072;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
-RDebugUtils.currentLine=131073;
- //BA.debugLineNum = 131073;BA.debugLine="Activity.LoadLayout(\"Layout\")";
+ //BA.debugLineNum = 32;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 33;BA.debugLine="Activity.LoadLayout(\"Layout\")";
 mostCurrent._activity.LoadLayout("Layout",mostCurrent.activityBA);
-RDebugUtils.currentLine=131074;
- //BA.debugLineNum = 131074;BA.debugLine="End Sub";
+ //BA.debugLineNum = 34;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
-RDebugUtils.currentModule="main";
-RDebugUtils.currentLine=262144;
- //BA.debugLineNum = 262144;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
-RDebugUtils.currentLine=262146;
- //BA.debugLineNum = 262146;BA.debugLine="End Sub";
+ //BA.debugLineNum = 40;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 42;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
-RDebugUtils.currentModule="main";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
-RDebugUtils.currentLine=196608;
- //BA.debugLineNum = 196608;BA.debugLine="Sub Activity_Resume";
-RDebugUtils.currentLine=196610;
- //BA.debugLineNum = 196610;BA.debugLine="End Sub";
+ //BA.debugLineNum = 36;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 38;BA.debugLine="End Sub";
 return "";
 }
 public static String  _btnplay_click() throws Exception{
-RDebugUtils.currentModule="main";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "btnplay_click", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btnplay_click", null));}
 byte _suma = (byte)0;
 byte _rand1 = (byte)0;
 byte _rand2 = (byte)0;
-RDebugUtils.currentLine=786432;
- //BA.debugLineNum = 786432;BA.debugLine="Private Sub btnPlay_Click";
-RDebugUtils.currentLine=786433;
- //BA.debugLineNum = 786433;BA.debugLine="Dim suma As Byte";
+ //BA.debugLineNum = 73;BA.debugLine="Private Sub btnPlay_Click";
+ //BA.debugLineNum = 74;BA.debugLine="Dim suma As Byte";
 _suma = (byte)0;
-RDebugUtils.currentLine=786435;
- //BA.debugLineNum = 786435;BA.debugLine="Private rand1, rand2 As Byte";
+ //BA.debugLineNum = 76;BA.debugLine="Private rand1, rand2 As Byte";
 _rand1 = (byte)0;
 _rand2 = (byte)0;
-RDebugUtils.currentLine=786437;
- //BA.debugLineNum = 786437;BA.debugLine="rand1 = Rnd(1, 7)";
+ //BA.debugLineNum = 78;BA.debugLine="rand1 = Rnd(1, 7)";
 _rand1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (7)));
-RDebugUtils.currentLine=786438;
- //BA.debugLineNum = 786438;BA.debugLine="rand2 = Rnd(1, 7)";
+ //BA.debugLineNum = 79;BA.debugLine="rand2 = Rnd(1, 7)";
 _rand2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (7)));
-RDebugUtils.currentLine=786440;
- //BA.debugLineNum = 786440;BA.debugLine="suma = rand1 + rand2";
+ //BA.debugLineNum = 81;BA.debugLine="suma = rand1 + rand2";
 _suma = (byte) (_rand1+_rand2);
-RDebugUtils.currentLine=786443;
- //BA.debugLineNum = 786443;BA.debugLine="imgMensaje.Visible = True";
+ //BA.debugLineNum = 84;BA.debugLine="imgMensaje.Visible = True";
 mostCurrent._imgmensaje.setVisible(anywheresoftware.b4a.keywords.Common.True);
-RDebugUtils.currentLine=786445;
- //BA.debugLineNum = 786445;BA.debugLine="If suma == 7 Then";
+ //BA.debugLineNum = 86;BA.debugLine="If suma == 7 Then";
 if (_suma==7) { 
-RDebugUtils.currentLine=786446;
- //BA.debugLineNum = 786446;BA.debugLine="imgMensaje.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 87;BA.debugLine="imgMensaje.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._imgmensaje.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"Ganado.png").getObject()));
  }else {
-RDebugUtils.currentLine=786448;
- //BA.debugLineNum = 786448;BA.debugLine="imgMensaje.SetBackgroundImage(LoadBitmap(File.Di";
+ //BA.debugLineNum = 89;BA.debugLine="imgMensaje.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._imgmensaje.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"Perdido.png").getObject()));
  };
-RDebugUtils.currentLine=786451;
- //BA.debugLineNum = 786451;BA.debugLine="setImgDado(rand1, imgDado1)";
+ //BA.debugLineNum = 92;BA.debugLine="setImgDado(rand1, imgDado1)";
 _setimgdado(_rand1,mostCurrent._imgdado1);
-RDebugUtils.currentLine=786452;
- //BA.debugLineNum = 786452;BA.debugLine="setImgDado(rand2, imgDado2)";
+ //BA.debugLineNum = 93;BA.debugLine="setImgDado(rand2, imgDado2)";
 _setimgdado(_rand2,mostCurrent._imgdado2);
-RDebugUtils.currentLine=786454;
- //BA.debugLineNum = 786454;BA.debugLine="intentos = intentos + 1";
+ //BA.debugLineNum = 95;BA.debugLine="intentos = intentos + 1";
 _intentos = (int) (_intentos+1);
-RDebugUtils.currentLine=786455;
- //BA.debugLineNum = 786455;BA.debugLine="lblIntentois.Text = \"Intentos: \" & intentos";
+ //BA.debugLineNum = 96;BA.debugLine="lblIntentois.Text = \"Intentos: \" & intentos";
 mostCurrent._lblintentois.setText(BA.ObjectToCharSequence("Intentos: "+BA.NumberToString(_intentos)));
-RDebugUtils.currentLine=786457;
- //BA.debugLineNum = 786457;BA.debugLine="End Sub";
+ //BA.debugLineNum = 98;BA.debugLine="End Sub";
+return "";
+}
+public static String  _button1_click() throws Exception{
+ //BA.debugLineNum = 44;BA.debugLine="Sub Button1_Click";
+ //BA.debugLineNum = 45;BA.debugLine="xui.MsgboxAsync(\"Hello world!\", \"B4X\")";
+_xui.MsgboxAsync(processBA,BA.ObjectToCharSequence("Hello world!"),BA.ObjectToCharSequence("B4X"));
+ //BA.debugLineNum = 46;BA.debugLine="End Sub";
+return "";
+}
+public static String  _globals() throws Exception{
+ //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 23;BA.debugLine="Private imgDado1 As ImageView";
+mostCurrent._imgdado1 = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 24;BA.debugLine="Private imgDado2 As ImageView";
+mostCurrent._imgdado2 = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 25;BA.debugLine="Private imgMensaje As ImageView";
+mostCurrent._imgmensaje = new anywheresoftware.b4a.objects.ImageViewWrapper();
+ //BA.debugLineNum = 27;BA.debugLine="Private intentos As Int";
+_intentos = 0;
+ //BA.debugLineNum = 29;BA.debugLine="Private lblIntentois As Label";
+mostCurrent._lblintentois = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 30;BA.debugLine="End Sub";
+return "";
+}
+
+public static void initializeProcessGlobals() {
+    
+    if (main.processGlobalsRun == false) {
+	    main.processGlobalsRun = true;
+		try {
+		        main._process_globals();
+starter._process_globals();
+		
+        } catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+}public static String  _process_globals() throws Exception{
+ //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 18;BA.debugLine="Private xui As XUI";
+_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
+ //BA.debugLineNum = 19;BA.debugLine="End Sub";
 return "";
 }
 public static String  _setimgdado(byte _numdado,anywheresoftware.b4a.objects.ImageViewWrapper _imgview) throws Exception{
-RDebugUtils.currentModule="main";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "setimgdado", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "setimgdado", new Object[] {_numdado,_imgview}));}
-RDebugUtils.currentLine=1703936;
- //BA.debugLineNum = 1703936;BA.debugLine="Private Sub setImgDado(numDado As Byte, imgView As";
-RDebugUtils.currentLine=1703938;
- //BA.debugLineNum = 1703938;BA.debugLine="Select numDado";
+ //BA.debugLineNum = 48;BA.debugLine="Private Sub setImgDado(numDado As Byte, imgView As";
+ //BA.debugLineNum = 50;BA.debugLine="Select numDado";
 switch (BA.switchObjectToInt(_numdado,(byte) (1),(byte) (2),(byte) (3),(byte) (4),(byte) (5),(byte) (6))) {
 case 0: {
-RDebugUtils.currentLine=1703940;
- //BA.debugLineNum = 1703940;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 52;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado1.png").getObject()));
  break; }
 case 1: {
-RDebugUtils.currentLine=1703943;
- //BA.debugLineNum = 1703943;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 55;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado2.png").getObject()));
  break; }
 case 2: {
-RDebugUtils.currentLine=1703946;
- //BA.debugLineNum = 1703946;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 58;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado3.png").getObject()));
  break; }
 case 3: {
-RDebugUtils.currentLine=1703949;
- //BA.debugLineNum = 1703949;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 61;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado4.png").getObject()));
  break; }
 case 4: {
-RDebugUtils.currentLine=1703952;
- //BA.debugLineNum = 1703952;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 64;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado5.png").getObject()));
  break; }
 case 5: {
-RDebugUtils.currentLine=1703955;
- //BA.debugLineNum = 1703955;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 67;BA.debugLine="imgView.SetBackgroundImage(LoadBitmap(File.DirA";
 _imgview.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"dado6.png").getObject()));
  break; }
 }
 ;
-RDebugUtils.currentLine=1703959;
- //BA.debugLineNum = 1703959;BA.debugLine="End Sub";
-return "";
-}
-public static String  _button1_click() throws Exception{
-RDebugUtils.currentModule="main";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "button1_click", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "button1_click", null));}
-RDebugUtils.currentLine=327680;
- //BA.debugLineNum = 327680;BA.debugLine="Sub Button1_Click";
-RDebugUtils.currentLine=327681;
- //BA.debugLineNum = 327681;BA.debugLine="xui.MsgboxAsync(\"Hello world!\", \"B4X\")";
-_xui.MsgboxAsync(processBA,BA.ObjectToCharSequence("Hello world!"),BA.ObjectToCharSequence("B4X"));
-RDebugUtils.currentLine=327682;
- //BA.debugLineNum = 327682;BA.debugLine="End Sub";
+ //BA.debugLineNum = 71;BA.debugLine="End Sub";
 return "";
 }
 }

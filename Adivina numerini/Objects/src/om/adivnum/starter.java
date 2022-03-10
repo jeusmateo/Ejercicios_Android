@@ -1,4 +1,4 @@
-package b4a.example;
+package om.adivnum;
 
 
 import anywheresoftware.b4a.BA;
@@ -29,7 +29,7 @@ public class starter extends  android.app.Service{
         super.onCreate();
         mostCurrent = this;
         if (processBA == null) {
-		    processBA = new BA(this, null, null, "b4a.example", "b4a.example.starter");
+		    processBA = new BA(this, null, null, "om.adivnum", "om.adivnum.starter");
             if (BA.isShellModeRuntimeCheck(processBA)) {
                 processBA.raiseEvent2(null, true, "SHELL", false);
 		    }
@@ -45,7 +45,7 @@ public class starter extends  android.app.Service{
         processBA.service = this;
         
         if (BA.isShellModeRuntimeCheck(processBA)) {
-			processBA.raiseEvent2(null, true, "CREATE", true, "b4a.example.starter", processBA, _service, anywheresoftware.b4a.keywords.Common.Density);
+			processBA.raiseEvent2(null, true, "CREATE", true, "om.adivnum.starter", processBA, _service, anywheresoftware.b4a.keywords.Common.Density);
 		}
         if (!true && ServiceHelper.StarterHelper.startFromServiceCreate(processBA, false) == false) {
 				
@@ -125,7 +125,7 @@ public class starter extends  android.app.Service{
 	public android.os.IBinder onBind(android.content.Intent intent) {
 		return null;
 	}public anywheresoftware.b4a.keywords.Common __c = null;
-public b4a.example.main _main = null;
+public om.adivnum.main _main = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
  //BA.debugLineNum = 27;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
  //BA.debugLineNum = 28;BA.debugLine="Return True";

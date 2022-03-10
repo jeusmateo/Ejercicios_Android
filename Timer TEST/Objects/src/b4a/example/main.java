@@ -34,7 +34,7 @@ public class main extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
+			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -335,95 +335,113 @@ public class main extends Activity implements B4AActivity{
             
     }
 
-public anywheresoftware.b4a.keywords.Common __c = null;
-public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
-public anywheresoftware.b4a.objects.EditTextWrapper _txt1 = null;
-public anywheresoftware.b4a.objects.EditTextWrapper _txt2 = null;
-public b4a.example.starter _starter = null;
 
-public static boolean isAnyActivityVisible() {
-    boolean vis = false;
-vis = vis | (main.mostCurrent != null);
-return vis;}
-public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 27;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 28;BA.debugLine="Activity.LoadLayout(\"Layout\")";
-mostCurrent._activity.LoadLayout("Layout",mostCurrent.activityBA);
- //BA.debugLineNum = 29;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 35;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 37;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 31;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 33;BA.debugLine="End Sub";
-return "";
-}
-public static String  _btnsumar_click() throws Exception{
-float _resultado = 0f;
-int _num1 = 0;
-int _num2 = 0;
- //BA.debugLineNum = 39;BA.debugLine="Private Sub btnSumar_Click";
- //BA.debugLineNum = 41;BA.debugLine="If (txt1.Text == \"\" Or txt2.Text == \"\") Then";
-if (((mostCurrent._txt1.getText()).equals("") || (mostCurrent._txt2.getText()).equals(""))) { 
- //BA.debugLineNum = 42;BA.debugLine="MsgboxAsync(\"Debe digitar ambos numeros\", \"Error";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Debe digitar ambos numeros"),BA.ObjectToCharSequence("Error"),processBA);
- //BA.debugLineNum = 43;BA.debugLine="Return";
-if (true) return "";
- };
- //BA.debugLineNum = 46;BA.debugLine="If (IsNumber(txt1.Text) == False Or IsNumber(txt2";
-if ((anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt1.getText())==anywheresoftware.b4a.keywords.Common.False || anywheresoftware.b4a.keywords.Common.IsNumber(mostCurrent._txt2.getText())==anywheresoftware.b4a.keywords.Common.False)) { 
- //BA.debugLineNum = 47;BA.debugLine="MsgboxAsync(\"Escriba un digito valido\", \"Error\")";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Escriba un digito valido"),BA.ObjectToCharSequence("Error"),processBA);
- //BA.debugLineNum = 48;BA.debugLine="Return";
-if (true) return "";
- };
- //BA.debugLineNum = 52;BA.debugLine="Dim resultado As Float";
-_resultado = 0f;
- //BA.debugLineNum = 53;BA.debugLine="Dim num1, num2 As Int";
-_num1 = 0;
-_num2 = 0;
- //BA.debugLineNum = 55;BA.debugLine="num1 = txt1.Text";
-_num1 = (int)(Double.parseDouble(mostCurrent._txt1.getText()));
- //BA.debugLineNum = 56;BA.debugLine="num2 = txt2.Text";
-_num2 = (int)(Double.parseDouble(mostCurrent._txt2.getText()));
- //BA.debugLineNum = 58;BA.debugLine="resultado = num1 + num2";
-_resultado = (float) (_num1+_num2);
- //BA.debugLineNum = 60;BA.debugLine="MsgboxAsync (\"El resultado es \" & resultado, \"Res";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("El resultado es "+BA.NumberToString(_resultado)),BA.ObjectToCharSequence("Resultado"),processBA);
- //BA.debugLineNum = 62;BA.debugLine="End Sub";
-return "";
-}
-public static String  _globals() throws Exception{
- //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 23;BA.debugLine="Private txt1 As EditText";
-mostCurrent._txt1 = new anywheresoftware.b4a.objects.EditTextWrapper();
- //BA.debugLineNum = 24;BA.debugLine="Private txt2 As EditText";
-mostCurrent._txt2 = new anywheresoftware.b4a.objects.EditTextWrapper();
- //BA.debugLineNum = 25;BA.debugLine="End Sub";
-return "";
-}
 
 public static void initializeProcessGlobals() {
     
     if (main.processGlobalsRun == false) {
 	    main.processGlobalsRun = true;
 		try {
-		        main._process_globals();
-starter._process_globals();
-		
+		        		
         } catch (Exception e) {
 			throw new RuntimeException(e);
 		}
     }
-}public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 18;BA.debugLine="Private xui As XUI";
-_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+}
+public static boolean isAnyActivityVisible() {
+    boolean vis = false;
+vis = vis | (main.mostCurrent != null);
+return vis;}
+
+private static BA killProgramHelper(BA ba) {
+    if (ba == null)
+        return null;
+    anywheresoftware.b4a.BA.SharedProcessBA sharedProcessBA = ba.sharedProcessBA;
+    if (sharedProcessBA == null || sharedProcessBA.activityBA == null)
+        return null;
+    return sharedProcessBA.activityBA.get();
+}
+public static void killProgram() {
+     {
+            Activity __a = null;
+            if (main.previousOne != null) {
+				__a = main.previousOne.get();
+			}
+            else {
+                BA ba = killProgramHelper(main.mostCurrent == null ? null : main.mostCurrent.processBA);
+                if (ba != null) __a = ba.activity;
+            }
+            if (__a != null)
+				__a.finish();}
+
+BA.applicationContext.stopService(new android.content.Intent(BA.applicationContext, starter.class));
+}
+public anywheresoftware.b4a.keywords.Common __c = null;
+public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
+public static anywheresoftware.b4a.objects.Timer _time = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lbldisplay = null;
+public b4a.example.starter _starter = null;
+public static String  _activity_create(boolean _firsttime) throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
+RDebugUtils.currentLine=131072;
+ //BA.debugLineNum = 131072;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+RDebugUtils.currentLine=131073;
+ //BA.debugLineNum = 131073;BA.debugLine="Activity.LoadLayout(\"Layout\")";
+mostCurrent._activity.LoadLayout("Layout",mostCurrent.activityBA);
+RDebugUtils.currentLine=131074;
+ //BA.debugLineNum = 131074;BA.debugLine="End Sub";
+return "";
+}
+public static String  _activity_pause(boolean _userclosed) throws Exception{
+RDebugUtils.currentModule="main";
+RDebugUtils.currentLine=262144;
+ //BA.debugLineNum = 262144;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+RDebugUtils.currentLine=262146;
+ //BA.debugLineNum = 262146;BA.debugLine="End Sub";
+return "";
+}
+public static String  _activity_resume() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
+RDebugUtils.currentLine=196608;
+ //BA.debugLineNum = 196608;BA.debugLine="Sub Activity_Resume";
+RDebugUtils.currentLine=196610;
+ //BA.debugLineNum = 196610;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnstart_click() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "btnstart_click", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btnstart_click", null));}
+RDebugUtils.currentLine=851968;
+ //BA.debugLineNum = 851968;BA.debugLine="Private Sub btnStart_Click";
+RDebugUtils.currentLine=851970;
+ //BA.debugLineNum = 851970;BA.debugLine="time.Initialize(\"Timer1\", 1000)";
+_time.Initialize(processBA,"Timer1",(long) (1000));
+RDebugUtils.currentLine=851971;
+ //BA.debugLineNum = 851971;BA.debugLine="time.Enabled = True";
+_time.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=851974;
+ //BA.debugLineNum = 851974;BA.debugLine="End Sub";
+return "";
+}
+public static String  _timer1_tick() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "timer1_tick", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "timer1_tick", null));}
+RDebugUtils.currentLine=1638400;
+ //BA.debugLineNum = 1638400;BA.debugLine="Private Sub Timer1_Tick";
+RDebugUtils.currentLine=1638401;
+ //BA.debugLineNum = 1638401;BA.debugLine="lblDisplay.Text = lblDisplay.Text.As(Int) + 1";
+mostCurrent._lbldisplay.setText(BA.ObjectToCharSequence(((int)(Double.parseDouble(mostCurrent._lbldisplay.getText())))+1));
+RDebugUtils.currentLine=1638403;
+ //BA.debugLineNum = 1638403;BA.debugLine="ToastMessageShow(time.As(String) & \" \" & time, Fa";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence((BA.ObjectToString(_time))+" "+BA.ObjectToString(_time)),anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=1638405;
+ //BA.debugLineNum = 1638405;BA.debugLine="End Sub";
 return "";
 }
 }
