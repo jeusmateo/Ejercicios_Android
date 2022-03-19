@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=1,2
 ModuleClosedNodes1=1
-NavigationStack=Main,Activity_Create,25,4,Main,Globals,21,0,Main,Process_Globals,14,4,Main,Activity_Pause,37,0,Diseñador Visual,Layout.bal,-100,2,Main,Activity_Resume,29,0
+NavigationStack=Main,GameOver,61,6,Main,Globals,28,6,Main,StartGame,70,6,Main,GenerateNum,66,6,Main,Activity_Create,38,6,Main,btnPlay_Click,96,6,Main,ButtonsEnabled,51,6,Main,Activity_Pause,47,0,Main,TejuinoCheck_Click,119,6
 SelectedBuild=0
 VisibleModules=1

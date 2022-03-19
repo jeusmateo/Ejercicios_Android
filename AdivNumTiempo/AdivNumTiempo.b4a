@@ -70,11 +70,11 @@ End Sub
 	
 Private Sub timer_tick
 	time = time - 1
-	lblTiempo.Text = time
+	lblTiempo.Text = "Tiempo: " & time
 	
 	If time == 0 Then
 		timer.Enabled = False
-		GameOver("")
+		GameOver
 	End If
 	
 	
@@ -88,26 +88,53 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Private Sub GameOver()
+Private Sub StartGame
+	win = False
+	time = 40
+	turn = 1
+	
+	lblTiempo.Text = "Tiempo: " & time
+	lblMensajes.Text = ""
+	img.Background = Null
+	
+	btnPlay.Enabled = False
+	timer.Enabled = True
+	
+	P1Visible(True)
+	txtP1.RequestFocus
+	
+	
+	randomN = Rnd(1, 101)
+	Log(randomN)
+
+End Sub
+
+Private Sub GameOver
+	
+	P1Visible(False)
+	P2Visible(False)
+	timer.Enabled = False
+	btnPlay.Enabled = True
+	
+	lblTiempo.Text = "Tiempo: "
+	lblMensajes.Text = ""
+	
 	
 	If win Then
-		MsgboxAsync("HAS GANADO JUGADOR " & turn, "GAME OVER")
+'		MsgboxAsync("HAS GANADO JUGADOR " & turn, "GAME OVER")
 '		lblMensajes.Text = "GANADOR " & pWinner
 				
 		Select turn
 			Case 1:
+				img.SetBackgroundImage(LoadBitmap(File.DirAssets, "JUG1.png"))
 			Case 2:
-		
+				img.SetBackgroundImage(LoadBitmap(File.DirAssets, "JUG2.png"))
 		End Select
-
-		img.SetBackgroundImage(LoadBitmap(File.DirAssets, "JUG1.png"))
-		P1Visible(False)
-		P2Visible(False)
-		btnPlay.Enabled = True
 		Return		
 	End If
 	
-	
+	' Si no gano perdió
+	img.SetBackgroundImage(LoadBitmap(File.DirAssets, "GAMEOVER.png"))
 
 End Sub
 
@@ -124,22 +151,7 @@ Private Sub P2Visible(bool As Boolean)
 End Sub
 
 Private Sub btnPlay_Click
-	win = False
-	time = 40
-	lblTiempo.Text = "Tiempo: " & time 
-	btnPlay.Enabled = False
-	
-	timer.Enabled = True
-	
-	P1Visible(True)
-	txtP1.RequestFocus
-	turn = 1
-	
-	lblMensajes.Text = ""
-	
-	randomN = Rnd(1, 101)
-	Log(randomN)
-
+	StartGame
 End Sub
 
 Private Sub CheckNum(num As Int, pTurnName As String)
@@ -147,16 +159,16 @@ Private Sub CheckNum(num As Int, pTurnName As String)
 	Log(pTurnName & " - " & num)
 	If num == randomN Then
 		win = True
-		GameOver(pTurnName)
+		GameOver
 		Return
 	End If
 	
 	If num < randomN Then
-		MsgboxAsync("El numero es mayor", "!!!")
+'		MsgboxAsync("El numero es mayor", "!!!")
 		lblMensajes.Text = "El numero es mayor"
 		
 	Else If num > randomN Then
-		MsgboxAsync("El numero es menor", "!!!")
+'		MsgboxAsync("El numero es menor", "!!!")
 		lblMensajes.Text = "El numero es menor"
 	End If
 	
@@ -186,9 +198,7 @@ Private Sub btnP1_Click
 	End If
 	
 	Dim inputPlayer As Int
-	
-	
-	
+
 	inputPlayer = txtP1.Text
 	
 	CheckNum(inputPlayer, "JUGADOR 1")

@@ -70,8 +70,9 @@ public static RemoteObject _btnplay = RemoteObject.declareNull("anywheresoftware
 public static RemoteObject _time = RemoteObject.createImmutable((byte)0);
 public static RemoteObject _lbltiempo = RemoteObject.declareNull("anywheresoftware.b4a.objects.LabelWrapper");
 public static RemoteObject _win = RemoteObject.createImmutable(false);
+public static RemoteObject _img = RemoteObject.declareNull("anywheresoftware.b4a.objects.ImageViewWrapper");
 public static b4a.example.starter _starter = null;
   public Object[] GetGlobals() {
-		return new Object[] {"Activity",main.mostCurrent._activity,"btnP1",main.mostCurrent._btnp1,"btnP2",main.mostCurrent._btnp2,"btnPlay",main.mostCurrent._btnplay,"lblMensajes",main.mostCurrent._lblmensajes,"lblP1",main.mostCurrent._lblp1,"lblP2",main.mostCurrent._lblp2,"lblTiempo",main.mostCurrent._lbltiempo,"randomN",main._randomn,"Starter",Debug.moduleToString(b4a.example.starter.class),"time",main._time,"timer",main._timer,"turn",main._turn,"txtP1",main.mostCurrent._txtp1,"txtP2",main.mostCurrent._txtp2,"win",main._win,"xui",main._xui};
+		return new Object[] {"Activity",main.mostCurrent._activity,"btnP1",main.mostCurrent._btnp1,"btnP2",main.mostCurrent._btnp2,"btnPlay",main.mostCurrent._btnplay,"img",main.mostCurrent._img,"lblMensajes",main.mostCurrent._lblmensajes,"lblP1",main.mostCurrent._lblp1,"lblP2",main.mostCurrent._lblp2,"lblTiempo",main.mostCurrent._lbltiempo,"randomN",main._randomn,"Starter",Debug.moduleToString(b4a.example.starter.class),"time",main._time,"timer",main._timer,"turn",main._turn,"txtP1",main.mostCurrent._txtp1,"txtP2",main.mostCurrent._txtp2,"win",main._win,"xui",main._xui};
 }
 }

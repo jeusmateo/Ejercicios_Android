@@ -33,10 +33,24 @@ End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
+	Private Panel1 As Panel
+	Private btnPlay As Button
+	Private lblScore As Label
+	
+	Private randomNum1 As Byte
+	Private randomNum2 As Byte
+	Private randomNum3 As Byte
+	Private score As Int
+	
+	Private lives As Byte
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
+
+	ButtonsEnabled(False)
+	
 End Sub
 
 Sub Activity_Resume
@@ -47,4 +61,77 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
+Private Sub ButtonsEnabled(bool As Boolean)
+	For Each button As Button In Panel1
+		button.Enabled = bool
+	Next
+End Sub
 
+Private Sub GenerateNum	
+	randomNum1 = Rnd(1, 21)
+	randomNum2 = Rnd(1, 21)
+	randomNum3 = Rnd(1, 21)
+	
+	If randomNum1 == randomNum2 Or randomNum1 == randomNum3 Or randomNum2 == randomNum3 Then
+		randomNum1 = Rnd(1, 21)
+		randomNum2 = Rnd(1, 21)
+		randomNum3 = Rnd(1, 21)
+	End If
+	
+End Sub
+
+Private Sub StartGame
+	GenerateNum
+	ToastMessageShow(randomNum1 & randomNum2 & randomNum3, False)
+	
+	score = 0
+	lives = 3
+	
+	btnPlay.Enabled = False
+	lblScore.Text = "Score: " & score
+	
+	ButtonsEnabled(True)
+End Sub
+
+Private Sub GameOver
+
+	MsgboxAsync("GAME OVER", "")	
+	
+	btnPlay.Enabled = True
+	lblScore.Text = ""
+	
+	ButtonsEnabled(False)
+End Sub
+
+
+Private Sub btnPlay_Click
+	StartGame
+	
+End Sub
+
+
+Private Sub TejuinoCheck_Click
+	Dim button As Button
+	Dim btnValue As Byte
+	
+	
+	button = Sender
+	btnValue = button.Tag
+	
+	If btnValue == randomNum1 Or btnValue == randomNum2 Or btnValue == randomNum3 Then
+		' Inserrat codiigo para mostrar a u tejuino
+		lives = lives - 1
+		ToastMessageShow(lives, False)
+		Return
+	End If
+	
+	If lives == 0 Then
+		GameOver
+		Return
+	End If
+	
+	
+	score = score + 5
+	lblScore.Text = "Score: " & score	
+	
+End Sub
