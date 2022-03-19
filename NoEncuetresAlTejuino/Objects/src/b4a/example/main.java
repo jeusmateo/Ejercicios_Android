@@ -34,7 +34,7 @@ public class main extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
+			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -335,8 +335,50 @@ public class main extends Activity implements B4AActivity{
             
     }
 
+
+
+public static void initializeProcessGlobals() {
+    
+    if (main.processGlobalsRun == false) {
+	    main.processGlobalsRun = true;
+		try {
+		        		
+        } catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+}
+public static boolean isAnyActivityVisible() {
+    boolean vis = false;
+vis = vis | (main.mostCurrent != null);
+return vis;}
+
+private static BA killProgramHelper(BA ba) {
+    if (ba == null)
+        return null;
+    anywheresoftware.b4a.BA.SharedProcessBA sharedProcessBA = ba.sharedProcessBA;
+    if (sharedProcessBA == null || sharedProcessBA.activityBA == null)
+        return null;
+    return sharedProcessBA.activityBA.get();
+}
+public static void killProgram() {
+     {
+            Activity __a = null;
+            if (main.previousOne != null) {
+				__a = main.previousOne.get();
+			}
+            else {
+                BA ba = killProgramHelper(main.mostCurrent == null ? null : main.mostCurrent.processBA);
+                if (ba != null) __a = ba.activity;
+            }
+            if (__a != null)
+				__a.finish();}
+
+BA.applicationContext.stopService(new android.content.Intent(BA.applicationContext, starter.class));
+}
 public anywheresoftware.b4a.keywords.Common __c = null;
 public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
+public static anywheresoftware.b4a.objects.Timer _timer = null;
 public anywheresoftware.b4a.objects.PanelWrapper _panel1 = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _btnplay = null;
 public anywheresoftware.b4a.objects.LabelWrapper _lblscore = null;
@@ -345,42 +387,37 @@ public static byte _randomnum2 = (byte)0;
 public static byte _randomnum3 = (byte)0;
 public static int _score = 0;
 public static byte _lives = (byte)0;
+public anywheresoftware.b4a.objects.PanelWrapper _panel2 = null;
 public b4a.example.starter _starter = null;
-
-public static boolean isAnyActivityVisible() {
-    boolean vis = false;
-vis = vis | (main.mostCurrent != null);
-return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 36;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 37;BA.debugLine="Activity.LoadLayout(\"Layout\")";
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
+RDebugUtils.currentLine=131072;
+ //BA.debugLineNum = 131072;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+RDebugUtils.currentLine=131073;
+ //BA.debugLineNum = 131073;BA.debugLine="Activity.LoadLayout(\"Layout\")";
 mostCurrent._activity.LoadLayout("Layout",mostCurrent.activityBA);
- //BA.debugLineNum = 39;BA.debugLine="ButtonsEnabled(False)";
-_buttonsenabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 41;BA.debugLine="End Sub";
+RDebugUtils.currentLine=131075;
+ //BA.debugLineNum = 131075;BA.debugLine="ViewEnabled(False)";
+_viewenabled(anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=131076;
+ //BA.debugLineNum = 131076;BA.debugLine="timer.Initialize(\"Timer\", 1000)";
+_timer.Initialize(processBA,"Timer",(long) (1000));
+RDebugUtils.currentLine=131077;
+ //BA.debugLineNum = 131077;BA.debugLine="End Sub";
 return "";
 }
-public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 47;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 49;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 43;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 45;BA.debugLine="End Sub";
-return "";
-}
-public static String  _btnplay_click() throws Exception{
- //BA.debugLineNum = 94;BA.debugLine="Private Sub btnPlay_Click";
- //BA.debugLineNum = 95;BA.debugLine="StartGame";
-_startgame();
- //BA.debugLineNum = 97;BA.debugLine="End Sub";
-return "";
-}
-public static String  _buttonsenabled(boolean _bool) throws Exception{
+public static String  _viewenabled(boolean _bool) throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "viewenabled", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "viewenabled", new Object[] {_bool}));}
 anywheresoftware.b4a.objects.ButtonWrapper _button = null;
- //BA.debugLineNum = 51;BA.debugLine="Private Sub ButtonsEnabled(bool As Boolean)";
- //BA.debugLineNum = 52;BA.debugLine="For Each button As Button In Panel1";
+anywheresoftware.b4a.objects.ImageViewWrapper _imgview = null;
+RDebugUtils.currentLine=1835008;
+ //BA.debugLineNum = 1835008;BA.debugLine="Private Sub ViewEnabled(bool As Boolean)";
+RDebugUtils.currentLine=1835009;
+ //BA.debugLineNum = 1835009;BA.debugLine="For Each button As Button In Panel1";
 _button = new anywheresoftware.b4a.objects.ButtonWrapper();
 {
 final anywheresoftware.b4a.BA.IterableList group1 = mostCurrent._panel1;
@@ -389,141 +426,220 @@ final int groupLen1 = group1.getSize()
 ;
 for (; index1 < groupLen1;index1++){
 _button = (anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(group1.Get(index1)));
- //BA.debugLineNum = 53;BA.debugLine="button.Enabled = bool";
+RDebugUtils.currentLine=1835010;
+ //BA.debugLineNum = 1835010;BA.debugLine="button.Enabled = bool";
 _button.setEnabled(_bool);
  }
 };
- //BA.debugLineNum = 55;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1835013;
+ //BA.debugLineNum = 1835013;BA.debugLine="For Each imgView As ImageView In Panel2";
+_imgview = new anywheresoftware.b4a.objects.ImageViewWrapper();
+{
+final anywheresoftware.b4a.BA.IterableList group4 = mostCurrent._panel2;
+final int groupLen4 = group4.getSize()
+;int index4 = 0;
+;
+for (; index4 < groupLen4;index4++){
+_imgview = (anywheresoftware.b4a.objects.ImageViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ImageViewWrapper(), (android.widget.ImageView)(group4.Get(index4)));
+RDebugUtils.currentLine=1835014;
+ //BA.debugLineNum = 1835014;BA.debugLine="imgView.Visible = bool";
+_imgview.setVisible(_bool);
+ }
+};
+RDebugUtils.currentLine=1835017;
+ //BA.debugLineNum = 1835017;BA.debugLine="End Sub";
 return "";
 }
-public static String  _gameover() throws Exception{
- //BA.debugLineNum = 83;BA.debugLine="Private Sub GameOver";
- //BA.debugLineNum = 85;BA.debugLine="MsgboxAsync(\"GAME OVER\", \"\")";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("GAME OVER"),BA.ObjectToCharSequence(""),processBA);
- //BA.debugLineNum = 87;BA.debugLine="btnPlay.Enabled = True";
-mostCurrent._btnplay.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 88;BA.debugLine="lblScore.Text = \"\"";
-mostCurrent._lblscore.setText(BA.ObjectToCharSequence(""));
- //BA.debugLineNum = 90;BA.debugLine="ButtonsEnabled(False)";
-_buttonsenabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 91;BA.debugLine="End Sub";
+public static String  _activity_pause(boolean _userclosed) throws Exception{
+RDebugUtils.currentModule="main";
+RDebugUtils.currentLine=262144;
+ //BA.debugLineNum = 262144;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+RDebugUtils.currentLine=262146;
+ //BA.debugLineNum = 262146;BA.debugLine="End Sub";
 return "";
 }
-public static String  _generatenum() throws Exception{
- //BA.debugLineNum = 57;BA.debugLine="Private Sub GenerateNum";
- //BA.debugLineNum = 58;BA.debugLine="randomNum1 = Rnd(1, 21)";
-_randomnum1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- //BA.debugLineNum = 59;BA.debugLine="randomNum2 = Rnd(1, 21)";
-_randomnum2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- //BA.debugLineNum = 60;BA.debugLine="randomNum3 = Rnd(1, 21)";
-_randomnum3 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- //BA.debugLineNum = 62;BA.debugLine="If randomNum1 == randomNum2 Or randomNum1 == rand";
-if (_randomnum1==_randomnum2 || _randomnum1==_randomnum3 || _randomnum2==_randomnum3) { 
- //BA.debugLineNum = 63;BA.debugLine="randomNum1 = Rnd(1, 21)";
-_randomnum1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- //BA.debugLineNum = 64;BA.debugLine="randomNum2 = Rnd(1, 21)";
-_randomnum2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- //BA.debugLineNum = 65;BA.debugLine="randomNum3 = Rnd(1, 21)";
-_randomnum3 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
- };
- //BA.debugLineNum = 68;BA.debugLine="End Sub";
+public static String  _activity_resume() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
+RDebugUtils.currentLine=196608;
+ //BA.debugLineNum = 196608;BA.debugLine="Sub Activity_Resume";
+RDebugUtils.currentLine=196610;
+ //BA.debugLineNum = 196610;BA.debugLine="End Sub";
 return "";
 }
-public static String  _globals() throws Exception{
- //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 23;BA.debugLine="Private Panel1 As Panel";
-mostCurrent._panel1 = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 24;BA.debugLine="Private btnPlay As Button";
-mostCurrent._btnplay = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 25;BA.debugLine="Private lblScore As Label";
-mostCurrent._lblscore = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 27;BA.debugLine="Private randomNum1 As Byte";
-_randomnum1 = (byte)0;
- //BA.debugLineNum = 28;BA.debugLine="Private randomNum2 As Byte";
-_randomnum2 = (byte)0;
- //BA.debugLineNum = 29;BA.debugLine="Private randomNum3 As Byte";
-_randomnum3 = (byte)0;
- //BA.debugLineNum = 30;BA.debugLine="Private score As Int";
-_score = 0;
- //BA.debugLineNum = 32;BA.debugLine="Private lives As Byte";
-_lives = (byte)0;
- //BA.debugLineNum = 34;BA.debugLine="End Sub";
-return "";
-}
-
-public static void initializeProcessGlobals() {
-    
-    if (main.processGlobalsRun == false) {
-	    main.processGlobalsRun = true;
-		try {
-		        main._process_globals();
-starter._process_globals();
-		
-        } catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-    }
-}public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 18;BA.debugLine="Private xui As XUI";
-_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+public static String  _btnplay_click() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "btnplay_click", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btnplay_click", null));}
+RDebugUtils.currentLine=589824;
+ //BA.debugLineNum = 589824;BA.debugLine="Private Sub btnPlay_Click";
+RDebugUtils.currentLine=589825;
+ //BA.debugLineNum = 589825;BA.debugLine="StartGame";
+_startgame();
+RDebugUtils.currentLine=589827;
+ //BA.debugLineNum = 589827;BA.debugLine="End Sub";
 return "";
 }
 public static String  _startgame() throws Exception{
- //BA.debugLineNum = 70;BA.debugLine="Private Sub StartGame";
- //BA.debugLineNum = 71;BA.debugLine="GenerateNum";
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "startgame", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "startgame", null));}
+int _i = 0;
+RDebugUtils.currentLine=458752;
+ //BA.debugLineNum = 458752;BA.debugLine="Private Sub StartGame";
+RDebugUtils.currentLine=458754;
+ //BA.debugLineNum = 458754;BA.debugLine="For i = 0 To 19";
+{
+final int step1 = 1;
+final int limit1 = (int) (19);
+_i = (int) (0) ;
+for (;_i <= limit1 ;_i = _i + step1 ) {
+RDebugUtils.currentLine=458755;
+ //BA.debugLineNum = 458755;BA.debugLine="Panel1.GetView(i).As(Button).Text = i";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._panel1.GetView(_i).getObject()))).setText(BA.ObjectToCharSequence(_i));
+ }
+};
+RDebugUtils.currentLine=458758;
+ //BA.debugLineNum = 458758;BA.debugLine="GenerateNum";
 _generatenum();
- //BA.debugLineNum = 72;BA.debugLine="ToastMessageShow(randomNum1 & randomNum2 & random";
+RDebugUtils.currentLine=458760;
+ //BA.debugLineNum = 458760;BA.debugLine="ToastMessageShow(randomNum1 & randomNum2 & random";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence(BA.NumberToString(_randomnum1)+BA.NumberToString(_randomnum2)+BA.NumberToString(_randomnum3)),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 74;BA.debugLine="score = 0";
+RDebugUtils.currentLine=458762;
+ //BA.debugLineNum = 458762;BA.debugLine="score = 0";
 _score = (int) (0);
- //BA.debugLineNum = 75;BA.debugLine="lives = 3";
+RDebugUtils.currentLine=458763;
+ //BA.debugLineNum = 458763;BA.debugLine="lives = 3";
 _lives = (byte) (3);
- //BA.debugLineNum = 77;BA.debugLine="btnPlay.Enabled = False";
+RDebugUtils.currentLine=458765;
+ //BA.debugLineNum = 458765;BA.debugLine="btnPlay.Enabled = False";
 mostCurrent._btnplay.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 78;BA.debugLine="lblScore.Text = \"Score: \" & score";
+RDebugUtils.currentLine=458766;
+ //BA.debugLineNum = 458766;BA.debugLine="lblScore.Text = \"Score: \" & score";
 mostCurrent._lblscore.setText(BA.ObjectToCharSequence("Score: "+BA.NumberToString(_score)));
- //BA.debugLineNum = 80;BA.debugLine="ButtonsEnabled(True)";
-_buttonsenabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 81;BA.debugLine="End Sub";
+RDebugUtils.currentLine=458768;
+ //BA.debugLineNum = 458768;BA.debugLine="timer.Enabled = True";
+_timer.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=458770;
+ //BA.debugLineNum = 458770;BA.debugLine="ViewEnabled(True)";
+_viewenabled(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=458771;
+ //BA.debugLineNum = 458771;BA.debugLine="End Sub";
+return "";
+}
+public static String  _gameover() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "gameover", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "gameover", null));}
+RDebugUtils.currentLine=524288;
+ //BA.debugLineNum = 524288;BA.debugLine="Private Sub GameOver";
+RDebugUtils.currentLine=524290;
+ //BA.debugLineNum = 524290;BA.debugLine="MsgboxAsync(\"GAME OVER\", \"\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("GAME OVER"),BA.ObjectToCharSequence(""),processBA);
+RDebugUtils.currentLine=524292;
+ //BA.debugLineNum = 524292;BA.debugLine="btnPlay.Enabled = True";
+mostCurrent._btnplay.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=524293;
+ //BA.debugLineNum = 524293;BA.debugLine="lblScore.Text = \"\"";
+mostCurrent._lblscore.setText(BA.ObjectToCharSequence(""));
+RDebugUtils.currentLine=524295;
+ //BA.debugLineNum = 524295;BA.debugLine="ViewEnabled(False)";
+_viewenabled(anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=524297;
+ //BA.debugLineNum = 524297;BA.debugLine="End Sub";
+return "";
+}
+public static String  _generatenum() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "generatenum", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "generatenum", null));}
+RDebugUtils.currentLine=393216;
+ //BA.debugLineNum = 393216;BA.debugLine="Private Sub GenerateNum";
+RDebugUtils.currentLine=393217;
+ //BA.debugLineNum = 393217;BA.debugLine="randomNum1 = Rnd(1, 21)";
+_randomnum1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+RDebugUtils.currentLine=393218;
+ //BA.debugLineNum = 393218;BA.debugLine="randomNum2 = Rnd(1, 21)";
+_randomnum2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+RDebugUtils.currentLine=393219;
+ //BA.debugLineNum = 393219;BA.debugLine="randomNum3 = Rnd(1, 21)";
+_randomnum3 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+RDebugUtils.currentLine=393221;
+ //BA.debugLineNum = 393221;BA.debugLine="If randomNum1 == randomNum2 Or randomNum1 == rand";
+if (_randomnum1==_randomnum2 || _randomnum1==_randomnum3 || _randomnum2==_randomnum3) { 
+RDebugUtils.currentLine=393222;
+ //BA.debugLineNum = 393222;BA.debugLine="randomNum1 = Rnd(1, 21)";
+_randomnum1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+RDebugUtils.currentLine=393223;
+ //BA.debugLineNum = 393223;BA.debugLine="randomNum2 = Rnd(1, 21)";
+_randomnum2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+RDebugUtils.currentLine=393224;
+ //BA.debugLineNum = 393224;BA.debugLine="randomNum3 = Rnd(1, 21)";
+_randomnum3 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (21)));
+ };
+RDebugUtils.currentLine=393227;
+ //BA.debugLineNum = 393227;BA.debugLine="End Sub";
 return "";
 }
 public static String  _tejuinocheck_click() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "tejuinocheck_click", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "tejuinocheck_click", null));}
 anywheresoftware.b4a.objects.ButtonWrapper _button = null;
 byte _btnvalue = (byte)0;
- //BA.debugLineNum = 100;BA.debugLine="Private Sub TejuinoCheck_Click";
- //BA.debugLineNum = 101;BA.debugLine="Dim button As Button";
+RDebugUtils.currentLine=655360;
+ //BA.debugLineNum = 655360;BA.debugLine="Private Sub TejuinoCheck_Click";
+RDebugUtils.currentLine=655361;
+ //BA.debugLineNum = 655361;BA.debugLine="Dim button As Button";
 _button = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 102;BA.debugLine="Dim btnValue As Byte";
+RDebugUtils.currentLine=655362;
+ //BA.debugLineNum = 655362;BA.debugLine="Dim btnValue As Byte";
 _btnvalue = (byte)0;
- //BA.debugLineNum = 105;BA.debugLine="button = Sender";
+RDebugUtils.currentLine=655365;
+ //BA.debugLineNum = 655365;BA.debugLine="button = Sender";
 _button = (anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
- //BA.debugLineNum = 106;BA.debugLine="btnValue = button.Tag";
+RDebugUtils.currentLine=655366;
+ //BA.debugLineNum = 655366;BA.debugLine="btnValue = button.Tag";
 _btnvalue = (byte)(BA.ObjectToNumber(_button.getTag()));
- //BA.debugLineNum = 108;BA.debugLine="button.Enabled = False";
-_button.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 110;BA.debugLine="If lives == 0 Then";
-if (_lives==0) { 
- //BA.debugLineNum = 111;BA.debugLine="GameOver";
-_gameover();
- //BA.debugLineNum = 112;BA.debugLine="Return";
-if (true) return "";
- };
- //BA.debugLineNum = 115;BA.debugLine="If btnValue == randomNum1 Or btnValue == randomNu";
+RDebugUtils.currentLine=655368;
+ //BA.debugLineNum = 655368;BA.debugLine="If btnValue == randomNum1 Or btnValue == randomNu";
 if (_btnvalue==_randomnum1 || _btnvalue==_randomnum2 || _btnvalue==_randomnum3) { 
- //BA.debugLineNum = 116;BA.debugLine="lives = lives - 1";
+RDebugUtils.currentLine=655370;
+ //BA.debugLineNum = 655370;BA.debugLine="lives = lives - 1";
 _lives = (byte) (_lives-1);
- //BA.debugLineNum = 117;BA.debugLine="ToastMessageShow(lives, False)";
+RDebugUtils.currentLine=655371;
+ //BA.debugLineNum = 655371;BA.debugLine="ToastMessageShow(lives, False)";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence(_lives),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 118;BA.debugLine="Return";
+ };
+RDebugUtils.currentLine=655374;
+ //BA.debugLineNum = 655374;BA.debugLine="If lives == 0 Then";
+if (_lives==0) { 
+RDebugUtils.currentLine=655375;
+ //BA.debugLineNum = 655375;BA.debugLine="GameOver";
+_gameover();
+RDebugUtils.currentLine=655376;
+ //BA.debugLineNum = 655376;BA.debugLine="Return";
 if (true) return "";
  };
- //BA.debugLineNum = 122;BA.debugLine="score = score + 5";
+RDebugUtils.currentLine=655380;
+ //BA.debugLineNum = 655380;BA.debugLine="score = score + 5";
 _score = (int) (_score+5);
- //BA.debugLineNum = 123;BA.debugLine="lblScore.Text = \"Score: \" & score";
+RDebugUtils.currentLine=655381;
+ //BA.debugLineNum = 655381;BA.debugLine="lblScore.Text = \"Score: \" & score";
 mostCurrent._lblscore.setText(BA.ObjectToCharSequence("Score: "+BA.NumberToString(_score)));
- //BA.debugLineNum = 125;BA.debugLine="End Sub";
+RDebugUtils.currentLine=655383;
+ //BA.debugLineNum = 655383;BA.debugLine="End Sub";
+return "";
+}
+public static String  _timer_tick() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "timer_tick", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "timer_tick", null));}
+RDebugUtils.currentLine=2752512;
+ //BA.debugLineNum = 2752512;BA.debugLine="Private Sub Timer_Tick";
+RDebugUtils.currentLine=2752514;
+ //BA.debugLineNum = 2752514;BA.debugLine="End Sub";
 return "";
 }
 }

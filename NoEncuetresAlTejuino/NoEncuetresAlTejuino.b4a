@@ -1,12 +1,22 @@
 ﻿Build1=Default,b4a.example
-File1=Layout.bal
-FileGroup1=Default Group
+File1=Cora.png
+File2=Cora2.png
+File3=CoraVacio.png
+File4=Layout.bal
+File5=TejuinoBueno.png
+File6=TejuinoMalo.png
+FileGroup1=New Group
+FileGroup2=New Group
+FileGroup3=New Group
+FileGroup4=Default Group
+FileGroup5=New Group
+FileGroup6=New Group
 Group=Default Group
 Library1=core
 Library2=xui
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
 Module1=Starter
-NumberOfFiles=1
+NumberOfFiles=6
 NumberOfLibraries=2
 NumberOfModules=1
 Version=11.2
@@ -29,6 +39,7 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Private xui As XUI
+	Private timer As Timer
 End Sub
 
 Sub Globals
@@ -37,20 +48,22 @@ Sub Globals
 	Private btnPlay As Button
 	Private lblScore As Label
 	
-	Private randomNum1 As Byte
-	Private randomNum2 As Byte
-	Private randomNum3 As Byte
+	Private r1, r2, r3, r4, r5, m1, m2 As Byte
+	
 	Private score As Int
 	
 	Private lives As Byte
+	
+	Private Panel2 As Panel
+	
 	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
 
-	ButtonsEnabled(False)
-	
+	ViewEnabled(False)
+	timer.Initialize("Timer", 1000)
 End Sub
 
 Sub Activity_Resume
@@ -61,28 +74,68 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Private Sub ButtonsEnabled(bool As Boolean)
+Private Sub Timer_Tick
+	Panel2.GetView(r1).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel2.GetView(r2).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel2.GetView(r3).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel2.GetView(r4).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel2.GetView(r5).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	
+	Panel2.GetView(m1).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoMalo.png"))
+	Panel2.GetView(m2).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoMalo.png"))
+	
+	
+End Sub
+
+Private Sub ViewEnabled(bool As Boolean)
 	For Each button As Button In Panel1
 		button.Enabled = bool
 	Next
+	
+	For Each imgView As ImageView In Panel2
+		imgView.Visible = bool
+	Next
+	
 End Sub
 
 Private Sub GenerateNum	
-	randomNum1 = Rnd(1, 21)
-	randomNum2 = Rnd(1, 21)
-	randomNum3 = Rnd(1, 21)
+'	randomNum1 = Rnd(1, 21)
+'	randomNum2 = Rnd(1, 21)
+'	randomNum3 = Rnd(1, 21)
+'	
+'	If randomNum1 == randomNum2 Or randomNum1 == randomNum3 Or randomNum2 == randomNum3 Then
+'		randomNum1 = Rnd(1, 21)
+'		randomNum2 = Rnd(1, 21)
+'		randomNum3 = Rnd(1, 21)
+'	End If
+
+'	Dim arRand() As Byte
+'	
+'	arRand = Array As Byte(r1, r2, r3, r4, r5)
+
+	Do Until (r1 <> r2 And r2 <> r3 And r3 <> r4 And r4 <> r5 And r5 <> m1 And m1 <> m2)
+		r1 = Rnd(1, 21)
+		r2 = Rnd(1, 21)
+		r3 = Rnd(1, 21)
+		r4 = Rnd(1, 21)
+		r5 = Rnd(1, 21)
+		m1 = Rnd(1, 21)
+		m2 = Rnd(1, 21)
+	Loop
 	
-	If randomNum1 == randomNum2 Or randomNum1 == randomNum3 Or randomNum2 == randomNum3 Then
-		randomNum1 = Rnd(1, 21)
-		randomNum2 = Rnd(1, 21)
-		randomNum3 = Rnd(1, 21)
-	End If
-	
+	Log(r1 & r2 & r3 & r4 & r5 & m1 & m2)
+
 End Sub
 
 Private Sub StartGame
+	
+'	For i = 0 To 19
+'		Panel1.GetView(i).As(Button).Text = i
+'	Next
+	
 	GenerateNum
-	ToastMessageShow(randomNum1 & randomNum2 & randomNum3, False)
+	
+'	ToastMessageShow(randomNum1 & randomNum2 & randomNum3, False)
 	
 	score = 0
 	lives = 3
@@ -90,7 +143,9 @@ Private Sub StartGame
 	btnPlay.Enabled = False
 	lblScore.Text = "Score: " & score
 	
-	ButtonsEnabled(True)
+	timer.Enabled = True
+	
+	ViewEnabled(True)
 End Sub
 
 Private Sub GameOver
@@ -100,7 +155,8 @@ Private Sub GameOver
 	btnPlay.Enabled = True
 	lblScore.Text = ""
 	
-	ButtonsEnabled(False)
+	ViewEnabled(False)
+
 End Sub
 
 
@@ -118,20 +174,20 @@ Private Sub TejuinoCheck_Click
 	button = Sender
 	btnValue = button.Tag
 	
-	If btnValue == randomNum1 Or btnValue == randomNum2 Or btnValue == randomNum3 Then
+	If lives == 0 Then
+		GameOver
+	
+	Else If btnValue == r1 Then
 		' Inserrat codiigo para mostrar a u tejuino
 		lives = lives - 1
 		ToastMessageShow(lives, False)
-		Return
+	
+	Else
+		score = score + 5
+		lblScore.Text = "Score: " & score	
 	End If
 	
-	If lives == 0 Then
-		GameOver
-		Return
-	End If
 	
 	
-	score = score + 5
-	lblScore.Text = "Score: " & score	
 	
 End Sub
