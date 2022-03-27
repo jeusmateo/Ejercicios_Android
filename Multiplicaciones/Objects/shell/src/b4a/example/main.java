@@ -56,18 +56,8 @@ public boolean isSingleton() {
 	}
 public static RemoteObject __c = RemoteObject.declareNull("anywheresoftware.b4a.keywords.Common");
 public static RemoteObject _xui = RemoteObject.declareNull("anywheresoftware.b4a.objects.B4XViewWrapper.XUI");
-public static RemoteObject _timer = RemoteObject.declareNull("anywheresoftware.b4a.objects.Timer");
-public static RemoteObject _panel1 = RemoteObject.declareNull("anywheresoftware.b4a.objects.PanelWrapper");
-public static RemoteObject _btnplay = RemoteObject.declareNull("anywheresoftware.b4a.objects.ButtonWrapper");
-public static RemoteObject _lblscore = RemoteObject.declareNull("anywheresoftware.b4a.objects.LabelWrapper");
-public static RemoteObject _randomnum1 = RemoteObject.createImmutable((byte)0);
-public static RemoteObject _randomnum2 = RemoteObject.createImmutable((byte)0);
-public static RemoteObject _randomnum3 = RemoteObject.createImmutable((byte)0);
-public static RemoteObject _score = RemoteObject.createImmutable(0);
-public static RemoteObject _lives = RemoteObject.createImmutable((byte)0);
-public static RemoteObject _panel2 = RemoteObject.declareNull("anywheresoftware.b4a.objects.PanelWrapper");
 public static b4a.example.starter _starter = null;
   public Object[] GetGlobals() {
-		return new Object[] {"Activity",main.mostCurrent._activity,"btnPlay",main.mostCurrent._btnplay,"lblScore",main.mostCurrent._lblscore,"lives",main._lives,"Panel1",main.mostCurrent._panel1,"Panel2",main.mostCurrent._panel2,"randomNum1",main._randomnum1,"randomNum2",main._randomnum2,"randomNum3",main._randomnum3,"score",main._score,"Starter",Debug.moduleToString(b4a.example.starter.class),"timer",main._timer,"xui",main._xui};
+		return new Object[] {"Activity",main.mostCurrent._activity,"Starter",Debug.moduleToString(b4a.example.starter.class),"xui",main._xui};
 }
 }
