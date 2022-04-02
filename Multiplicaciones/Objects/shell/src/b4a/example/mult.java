@@ -11,13 +11,13 @@ import anywheresoftware.b4a.pc.Debug;
 import anywheresoftware.b4a.pc.B4XTypes.B4XClass;
 import anywheresoftware.b4a.pc.B4XTypes.DeviceClass;
 
-public class main implements IRemote{
-	public static main mostCurrent;
+public class mult implements IRemote{
+	public static mult mostCurrent;
 	public static RemoteObject processBA;
     public static boolean processGlobalsRun;
     public static RemoteObject myClass;
     public static RemoteObject remoteMe;
-	public main() {
+	public mult() {
 		mostCurrent = this;
 	}
     public RemoteObject getRemoteMe() {
@@ -30,7 +30,7 @@ public class main implements IRemote{
 
 	}
     static {
-        anywheresoftware.b4a.pc.RapidSub.moduleToObject.put(new B4XClass("main"), "b4a.example.main");
+        anywheresoftware.b4a.pc.RapidSub.moduleToObject.put(new B4XClass("mult"), "b4a.example.mult");
 	}
 
 public boolean isSingleton() {
@@ -50,20 +50,18 @@ public boolean isSingleton() {
 		_activity = (RemoteObject) args[3];
         anywheresoftware.b4a.keywords.Common.Density = (Float)args[4];
         remoteMe = (RemoteObject) args[5];
-		pcBA = new PCBA(this, main.class);
+		pcBA = new PCBA(this, mult.class);
         main_subs_0.initializeProcessGlobals();
 		return pcBA;
 	}
 public static RemoteObject __c = RemoteObject.declareNull("anywheresoftware.b4a.keywords.Common");
-public static RemoteObject _xui = RemoteObject.declareNull("anywheresoftware.b4a.objects.B4XViewWrapper.XUI");
-public static RemoteObject _btnval = RemoteObject.createImmutable((byte)0);
+public static b4a.example.main _main = null;
 public static b4a.example.starter _starter = null;
 public static b4a.example.suma1 _suma1 = null;
-public static b4a.example.mult _mult = null;
 public static b4a.example.suma2 _suma2 = null;
 public static b4a.example.tablas _tablas = null;
 public static b4a.example.tools _tools = null;
   public Object[] GetGlobals() {
-		return new Object[] {"Activity",main.mostCurrent._activity,"btnVal",main._btnval,"Mult",Debug.moduleToString(b4a.example.mult.class),"Starter",Debug.moduleToString(b4a.example.starter.class),"Suma1",Debug.moduleToString(b4a.example.suma1.class),"Suma2",Debug.moduleToString(b4a.example.suma2.class),"Tablas",Debug.moduleToString(b4a.example.tablas.class),"Tools",Debug.moduleToString(b4a.example.tools.class),"xui",main._xui};
+		return new Object[] {"Activity",mult.mostCurrent._activity,"Main",Debug.moduleToString(b4a.example.main.class),"Starter",Debug.moduleToString(b4a.example.starter.class),"Suma1",Debug.moduleToString(b4a.example.suma1.class),"Suma2",Debug.moduleToString(b4a.example.suma2.class),"Tablas",Debug.moduleToString(b4a.example.tablas.class),"Tools",Debug.moduleToString(b4a.example.tools.class)};
 }
 }

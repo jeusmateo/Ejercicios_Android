@@ -3,7 +3,7 @@ package b4a.example;
 import anywheresoftware.b4a.BA;
 import anywheresoftware.b4a.pc.*;
 
-public class main_subs_0 {
+public class main_subs_2 {
 
 
 public static RemoteObject  _activity_create(RemoteObject _firsttime) throws Exception{

@@ -1,27 +1,29 @@
 ﻿Build1=Default,b4a.example
 File1=Main.bal
-File10=Roboto-MediumItalic.ttf
-File11=Roboto-Regular.ttf
-File12=RobotoSlab-VariableFont_wght.ttf
-File13=Roboto-Thin.ttf
-File14=Roboto-ThinItalic.ttf
-File15=Suma1.bal
-File2=Roboto-Black.ttf
-File3=Roboto-BlackItalic.ttf
-File4=Roboto-Bold.ttf
-File5=Roboto-BoldItalic.ttf
-File6=Roboto-Italic.ttf
-File7=Roboto-Light.ttf
-File8=Roboto-LightItalic.ttf
-File9=Roboto-Medium.ttf
+File10=Roboto-Medium.ttf
+File11=Roboto-MediumItalic.ttf
+File12=Roboto-Regular.ttf
+File13=RobotoSlab-VariableFont_wght.ttf
+File14=Roboto-Thin.ttf
+File15=Roboto-ThinItalic.ttf
+File16=SumaResta.bal
+File2=Multi.bal
+File3=Roboto-Black.ttf
+File4=Roboto-BlackItalic.ttf
+File5=Roboto-Bold.ttf
+File6=Roboto-BoldItalic.ttf
+File7=Roboto-Italic.ttf
+File8=Roboto-Light.ttf
+File9=Roboto-LightItalic.ttf
 FileGroup1=Default Group
 FileGroup10=Nuevo Grupo
 FileGroup11=Nuevo Grupo
 FileGroup12=Nuevo Grupo
 FileGroup13=Nuevo Grupo
 FileGroup14=Nuevo Grupo
-FileGroup15=Default Group
-FileGroup2=Nuevo Grupo
+FileGroup15=Nuevo Grupo
+FileGroup16=Default Group
+FileGroup2=Default Group
 FileGroup3=Nuevo Grupo
 FileGroup4=Nuevo Grupo
 FileGroup5=Nuevo Grupo
@@ -32,12 +34,15 @@ FileGroup9=Nuevo Grupo
 Group=Default Group
 Library1=core
 Library2=xui
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
-Module1=Starter
-NumberOfFiles=15
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="30"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Mult
+Module2=Starter
+Module3=SumaResta
+Module4=Tools
+NumberOfFiles=16
 NumberOfLibraries=2
-NumberOfModules=1
-Version=11.2
+NumberOfModules=4
+Version=11.5
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Operaciones
@@ -51,20 +56,24 @@ Version=11.2
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: False
+	#BridgeLogger: True
 #End Region
 
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Private xui As XUI
+	Public btnVal As Byte
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Main")
+	btnVal = 0
 End Sub
 
 Sub Activity_Resume
@@ -81,26 +90,19 @@ End Sub
 
 Private Sub ElegirActividad_Click
 	Dim btn As Button
-	Dim btnVal As Byte
-	
+
 	btn = Sender
 	btnVal = btn.Tag
-	
-	
+
 	Select btnVal
 		Case 1:
-			StartActivity("Suma1")
+			StartActivity(SumaResta)
 		Case 2:
-			
+			StartActivity(SumaResta)
 		Case 3:
-			
+			StartActivity(Mult)
 		Case 4:
-			
+			StartActivity(Mult)
 	End Select
 	
-End Sub
-
-Private Sub btnVolver_Click
-	
-	StartActivity("Layout")
 End Sub
