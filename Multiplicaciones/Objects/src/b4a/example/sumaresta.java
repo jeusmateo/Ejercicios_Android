@@ -350,8 +350,8 @@ public anywheresoftware.b4a.objects.LabelWrapper _lbloperation = null;
 public anywheresoftware.b4a.objects.PanelWrapper _pnlsumaresta = null;
 public anywheresoftware.b4a.objects.LabelWrapper _lblcombo = null;
 public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
 public b4a.example.mult _mult = null;
+public b4a.example.starter _starter = null;
 public b4a.example.tools _tools = null;
 
 public static void initializeProcessGlobals() {
@@ -503,7 +503,7 @@ _res = (int) (_num1-_num2);
 }
 ;
  //BA.debugLineNum = 107;BA.debugLine="Log(res)";
-anywheresoftware.b4a.keywords.Common.LogImpl("11048609",BA.NumberToString(_res),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("11114145",BA.NumberToString(_res),0);
  //BA.debugLineNum = 109;BA.debugLine="lblN1.Text = num1";
 mostCurrent._lbln1.setText(BA.ObjectToCharSequence(_num1));
  //BA.debugLineNum = 110;BA.debugLine="lblN2.Text = num2";

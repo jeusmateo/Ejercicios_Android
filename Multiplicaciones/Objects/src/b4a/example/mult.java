@@ -450,7 +450,7 @@ mostCurrent._lbln1.setText(BA.ObjectToCharSequence(_num1));
  //BA.debugLineNum = 86;BA.debugLine="lblN2.Text = num2";
 mostCurrent._lbln2.setText(BA.ObjectToCharSequence(_num2));
  //BA.debugLineNum = 88;BA.debugLine="Log(res)";
-anywheresoftware.b4a.keywords.Common.LogImpl("12097168",BA.NumberToString(_res),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("11769488",BA.NumberToString(_res),0);
  //BA.debugLineNum = 90;BA.debugLine="End Sub";
 return "";
 }

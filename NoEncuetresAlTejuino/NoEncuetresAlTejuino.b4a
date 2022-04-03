@@ -29,7 +29,7 @@ Module1=Starter
 NumberOfFiles=11
 NumberOfLibraries=2
 NumberOfModules=1
-Version=11.2
+Version=11.5
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Atrapa Tejuinos

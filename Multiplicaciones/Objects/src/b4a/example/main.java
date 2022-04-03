@@ -340,8 +340,8 @@ public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
 public static byte _btnval = (byte)0;
 public static int _combo = 0;
 public b4a.example.sumaresta _sumaresta = null;
-public b4a.example.starter _starter = null;
 public b4a.example.mult _mult = null;
+public b4a.example.starter _starter = null;
 public b4a.example.tools _tools = null;
 
 public static boolean isAnyActivityVisible() {
@@ -415,8 +415,8 @@ public static void initializeProcessGlobals() {
 		try {
 		        main._process_globals();
 sumaresta._process_globals();
-starter._process_globals();
 mult._process_globals();
+starter._process_globals();
 tools._process_globals();
 		
         } catch (Exception e) {

@@ -13,8 +13,8 @@ public static Object getObject() {
  public anywheresoftware.b4a.keywords.Common __c = null;
 public b4a.example.main _main = null;
 public b4a.example.sumaresta _sumaresta = null;
-public b4a.example.starter _starter = null;
 public b4a.example.mult _mult = null;
+public b4a.example.starter _starter = null;
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 3;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 6;BA.debugLine="End Sub";
