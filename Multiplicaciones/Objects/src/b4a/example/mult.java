@@ -25,7 +25,7 @@ public class mult extends Activity implements B4AActivity{
     ActivityWrapper _activity;
     java.util.ArrayList<B4AMenuItem> menuItems;
 	public static final boolean fullScreen = false;
-	public static final boolean includeTitle = true;
+	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
     public static boolean dontPause;
 
@@ -34,7 +34,7 @@ public class mult extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.mult");
+			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.mult");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -335,7 +335,20 @@ public class mult extends Activity implements B4AActivity{
             
     }
 
-
+public anywheresoftware.b4a.keywords.Common __c = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnlopciones = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lbln1 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lbln2 = null;
+public static int _num1 = 0;
+public static int _num2 = 0;
+public static int _res = 0;
+public anywheresoftware.b4a.objects.PanelWrapper _pnlmain = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblcombo = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _btniniciar = null;
+public b4a.example.main _main = null;
+public b4a.example.sumaresta _sumaresta = null;
+public b4a.example.starter _starter = null;
+public b4a.example.tools _tools = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -344,42 +357,232 @@ public static void initializeProcessGlobals() {
                 throw new RuntimeException(e);
             }
 }
-public anywheresoftware.b4a.keywords.Common __c = null;
-public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
-public b4a.example.suma1 _suma1 = null;
-public b4a.example.suma2 _suma2 = null;
-public b4a.example.tablas _tablas = null;
-public b4a.example.tools _tools = null;
 public static String  _activity_create(boolean _firsttime) throws Exception{
-RDebugUtils.currentModule="mult";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
-RDebugUtils.currentLine=1638400;
- //BA.debugLineNum = 1638400;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
-RDebugUtils.currentLine=1638403;
- //BA.debugLineNum = 1638403;BA.debugLine="Activity.LoadLayout(\"multi\")";
-mostCurrent._activity.LoadLayout("multi",mostCurrent.activityBA);
-RDebugUtils.currentLine=1638404;
- //BA.debugLineNum = 1638404;BA.debugLine="End Sub";
+anywheresoftware.b4a.objects.B4XViewWrapper _element = null;
+ //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 32;BA.debugLine="Activity.LoadLayout(\"Multi\")";
+mostCurrent._activity.LoadLayout("Multi",mostCurrent.activityBA);
+ //BA.debugLineNum = 34;BA.debugLine="For Each element As B4XView In pnlMain";
+_element = new anywheresoftware.b4a.objects.B4XViewWrapper();
+{
+final anywheresoftware.b4a.BA.IterableList group2 = mostCurrent._pnlmain;
+final int groupLen2 = group2.getSize()
+;int index2 = 0;
+;
+for (; index2 < groupLen2;index2++){
+_element = (anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(group2.Get(index2)));
+ //BA.debugLineNum = 35;BA.debugLine="element.Visible = False";
+_element.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ }
+};
+ //BA.debugLineNum = 38;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
-RDebugUtils.currentModule="mult";
-RDebugUtils.currentLine=1769472;
- //BA.debugLineNum = 1769472;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
-RDebugUtils.currentLine=1769474;
- //BA.debugLineNum = 1769474;BA.debugLine="End Sub";
+ //BA.debugLineNum = 44;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 46;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
-RDebugUtils.currentModule="mult";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
-RDebugUtils.currentLine=1703936;
- //BA.debugLineNum = 1703936;BA.debugLine="Sub Activity_Resume";
-RDebugUtils.currentLine=1703938;
- //BA.debugLineNum = 1703938;BA.debugLine="End Sub";
+ //BA.debugLineNum = 40;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 42;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnevent_click() throws Exception{
+anywheresoftware.b4a.objects.ButtonWrapper _btn = null;
+int _btnvalue = 0;
+ //BA.debugLineNum = 52;BA.debugLine="Private Sub btnEvent_Click";
+ //BA.debugLineNum = 53;BA.debugLine="Dim btn As Button = Sender";
+_btn = new anywheresoftware.b4a.objects.ButtonWrapper();
+_btn = (anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
+ //BA.debugLineNum = 54;BA.debugLine="Dim btnValue As Int = btn.Text";
+_btnvalue = (int)(Double.parseDouble(_btn.getText()));
+ //BA.debugLineNum = 56;BA.debugLine="If btnValue == res Then";
+if (_btnvalue==_res) { 
+ //BA.debugLineNum = 57;BA.debugLine="ToastMessageShow(\"Correcto! 🎉\", False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Correcto! 🎉"),anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 58;BA.debugLine="Main.combo = Main.combo + 1";
+mostCurrent._main._combo /*int*/  = (int) (mostCurrent._main._combo /*int*/ +1);
+ }else {
+ //BA.debugLineNum = 60;BA.debugLine="ToastMessageShow(\"Incorrecto! 😔\", False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Incorrecto! 😔"),anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 61;BA.debugLine="Main.combo = 0";
+mostCurrent._main._combo /*int*/  = (int) (0);
+ };
+ //BA.debugLineNum = 64;BA.debugLine="lblCombo.Text = \"COMBO: \" & Main.combo";
+mostCurrent._lblcombo.setText(BA.ObjectToCharSequence("COMBO: "+BA.NumberToString(mostCurrent._main._combo /*int*/ )));
+ //BA.debugLineNum = 67;BA.debugLine="GenerateNum";
+_generatenum();
+ //BA.debugLineNum = 68;BA.debugLine="GenerateOptions";
+_generateoptions();
+ //BA.debugLineNum = 70;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btniniciar_click() throws Exception{
+ //BA.debugLineNum = 48;BA.debugLine="Private Sub btnIniciar_Click";
+ //BA.debugLineNum = 49;BA.debugLine="Start";
+_start();
+ //BA.debugLineNum = 50;BA.debugLine="End Sub";
+return "";
+}
+public static String  _generatenum() throws Exception{
+ //BA.debugLineNum = 72;BA.debugLine="Private Sub GenerateNum";
+ //BA.debugLineNum = 73;BA.debugLine="Select Main.btnVal";
+switch (BA.switchObjectToInt(mostCurrent._main._btnval /*byte*/ ,(byte) (3),(byte) (4))) {
+case 0: {
+ //BA.debugLineNum = 75;BA.debugLine="num1 = Rnd(1, 11)";
+_num1 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (11));
+ //BA.debugLineNum = 76;BA.debugLine="num2 = Rnd(1, 11)";
+_num2 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (11));
+ break; }
+case 1: {
+ //BA.debugLineNum = 79;BA.debugLine="num1 = Rnd(1, 101)";
+_num1 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (101));
+ //BA.debugLineNum = 80;BA.debugLine="num2 = Rnd(1, 11)";
+_num2 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (11));
+ break; }
+}
+;
+ //BA.debugLineNum = 83;BA.debugLine="res = num1 * num2";
+_res = (int) (_num1*_num2);
+ //BA.debugLineNum = 85;BA.debugLine="lblN1.Text = num1";
+mostCurrent._lbln1.setText(BA.ObjectToCharSequence(_num1));
+ //BA.debugLineNum = 86;BA.debugLine="lblN2.Text = num2";
+mostCurrent._lbln2.setText(BA.ObjectToCharSequence(_num2));
+ //BA.debugLineNum = 88;BA.debugLine="Log(res)";
+anywheresoftware.b4a.keywords.Common.LogImpl("12097168",BA.NumberToString(_res),0);
+ //BA.debugLineNum = 90;BA.debugLine="End Sub";
+return "";
+}
+public static String  _generateoptions() throws Exception{
+int _r1 = 0;
+int _r2 = 0;
+int _r3 = 0;
+int _limit = 0;
+byte _respos = (byte)0;
+ //BA.debugLineNum = 92;BA.debugLine="Private Sub GenerateOptions";
+ //BA.debugLineNum = 93;BA.debugLine="Dim r1, r2, r3 As Int = 0";
+_r1 = 0;
+_r2 = 0;
+_r3 = (int) (0);
+ //BA.debugLineNum = 94;BA.debugLine="Dim limit As Int = 0";
+_limit = (int) (0);
+ //BA.debugLineNum = 95;BA.debugLine="Dim resPos As Byte = Rnd(0, 4)";
+_respos = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (0),(int) (4)));
+ //BA.debugLineNum = 97;BA.debugLine="pnlOpciones.GetView(resPos).As(Button).Text = res";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (_respos)).getObject()))).setText(BA.ObjectToCharSequence(_res));
+ //BA.debugLineNum = 99;BA.debugLine="Select Main.btnVal";
+switch (BA.switchObjectToInt(mostCurrent._main._btnval /*byte*/ ,(byte) (3),(byte) (4))) {
+case 0: {
+ //BA.debugLineNum = 101;BA.debugLine="limit = 101";
+_limit = (int) (101);
+ break; }
+case 1: {
+ //BA.debugLineNum = 103;BA.debugLine="limit = 1001";
+_limit = (int) (1001);
+ break; }
+}
+;
+ //BA.debugLineNum = 106;BA.debugLine="Do Until (r1 <> r2 And r1 <> r3 And r1 <> res And";
+while (!((_r1!=_r2 && _r1!=_r3 && _r1!=_res && _r2!=_res && _r2!=_r3 && _r3!=_res))) {
+ //BA.debugLineNum = 107;BA.debugLine="r1 = Rnd(1, limit)";
+_r1 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),_limit);
+ //BA.debugLineNum = 108;BA.debugLine="r2 = Rnd(1, limit)";
+_r2 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),_limit);
+ //BA.debugLineNum = 109;BA.debugLine="r3 = Rnd(1, limit)";
+_r3 = anywheresoftware.b4a.keywords.Common.Rnd((int) (1),_limit);
+ }
+;
+ //BA.debugLineNum = 112;BA.debugLine="Select resPos";
+switch (BA.switchObjectToInt(_respos,(byte) (0),(byte) (1),(byte) (2),(byte) (3))) {
+case 0: {
+ //BA.debugLineNum = 114;BA.debugLine="pnlOpciones.GetView(1).As(Button).Text = r1";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (1)).getObject()))).setText(BA.ObjectToCharSequence(_r1));
+ //BA.debugLineNum = 115;BA.debugLine="pnlOpciones.GetView(2).As(Button).Text = r2";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (2)).getObject()))).setText(BA.ObjectToCharSequence(_r2));
+ //BA.debugLineNum = 116;BA.debugLine="pnlOpciones.GetView(3).As(Button).Text = r3";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (3)).getObject()))).setText(BA.ObjectToCharSequence(_r3));
+ break; }
+case 1: {
+ //BA.debugLineNum = 118;BA.debugLine="pnlOpciones.GetView(0).As(Button).Text = r1";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (0)).getObject()))).setText(BA.ObjectToCharSequence(_r1));
+ //BA.debugLineNum = 119;BA.debugLine="pnlOpciones.GetView(2).As(Button).Text = r2";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (2)).getObject()))).setText(BA.ObjectToCharSequence(_r2));
+ //BA.debugLineNum = 120;BA.debugLine="pnlOpciones.GetView(3).As(Button).Text = r3";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (3)).getObject()))).setText(BA.ObjectToCharSequence(_r3));
+ break; }
+case 2: {
+ //BA.debugLineNum = 122;BA.debugLine="pnlOpciones.GetView(0).As(Button).Text = r1";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (0)).getObject()))).setText(BA.ObjectToCharSequence(_r1));
+ //BA.debugLineNum = 123;BA.debugLine="pnlOpciones.GetView(1).As(Button).Text = r2";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (1)).getObject()))).setText(BA.ObjectToCharSequence(_r2));
+ //BA.debugLineNum = 124;BA.debugLine="pnlOpciones.GetView(3).As(Button).Text = r3";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (3)).getObject()))).setText(BA.ObjectToCharSequence(_r3));
+ break; }
+case 3: {
+ //BA.debugLineNum = 126;BA.debugLine="pnlOpciones.GetView(0).As(Button).Text = r1";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (0)).getObject()))).setText(BA.ObjectToCharSequence(_r1));
+ //BA.debugLineNum = 127;BA.debugLine="pnlOpciones.GetView(1).As(Button).Text = r2";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (1)).getObject()))).setText(BA.ObjectToCharSequence(_r2));
+ //BA.debugLineNum = 128;BA.debugLine="pnlOpciones.GetView(2).As(Button).Text = r3";
+((anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(mostCurrent._pnlopciones.GetView((int) (2)).getObject()))).setText(BA.ObjectToCharSequence(_r3));
+ break; }
+}
+;
+ //BA.debugLineNum = 132;BA.debugLine="End Sub";
+return "";
+}
+public static String  _globals() throws Exception{
+ //BA.debugLineNum = 12;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 16;BA.debugLine="Private pnlOpciones As Panel";
+mostCurrent._pnlopciones = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 17;BA.debugLine="Private lblN1 As Label";
+mostCurrent._lbln1 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 18;BA.debugLine="Private lblN2 As Label";
+mostCurrent._lbln2 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 20;BA.debugLine="Private num1, num2, res As Int";
+_num1 = 0;
+_num2 = 0;
+_res = 0;
+ //BA.debugLineNum = 22;BA.debugLine="Private pnlMain As Panel";
+mostCurrent._pnlmain = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 23;BA.debugLine="Private lblCombo As Label";
+mostCurrent._lblcombo = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 26;BA.debugLine="Private btnIniciar As Button";
+mostCurrent._btniniciar = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 27;BA.debugLine="End Sub";
+return "";
+}
+public static String  _process_globals() throws Exception{
+ //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 10;BA.debugLine="End Sub";
+return "";
+}
+public static String  _start() throws Exception{
+anywheresoftware.b4a.objects.B4XViewWrapper _element = null;
+ //BA.debugLineNum = 134;BA.debugLine="Private Sub Start";
+ //BA.debugLineNum = 135;BA.debugLine="btnIniciar.Visible = False";
+mostCurrent._btniniciar.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 137;BA.debugLine="For Each element As B4XView In pnlMain";
+_element = new anywheresoftware.b4a.objects.B4XViewWrapper();
+{
+final anywheresoftware.b4a.BA.IterableList group2 = mostCurrent._pnlmain;
+final int groupLen2 = group2.getSize()
+;int index2 = 0;
+;
+for (; index2 < groupLen2;index2++){
+_element = (anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(group2.Get(index2)));
+ //BA.debugLineNum = 138;BA.debugLine="element.Visible = True";
+_element.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ }
+};
+ //BA.debugLineNum = 141;BA.debugLine="lblCombo.Text = \"COMBO: 0\"";
+mostCurrent._lblcombo.setText(BA.ObjectToCharSequence("COMBO: 0"));
+ //BA.debugLineNum = 143;BA.debugLine="GenerateNum";
+_generatenum();
+ //BA.debugLineNum = 144;BA.debugLine="GenerateOptions";
+_generateoptions();
+ //BA.debugLineNum = 147;BA.debugLine="End Sub";
 return "";
 }
 }

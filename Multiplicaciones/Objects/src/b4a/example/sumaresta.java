@@ -14,8 +14,8 @@ import anywheresoftware.b4a.B4AUncaughtException;
 import anywheresoftware.b4a.debug.*;
 import java.lang.ref.WeakReference;
 
-public class suma1 extends Activity implements B4AActivity{
-	public static suma1 mostCurrent;
+public class sumaresta extends Activity implements B4AActivity{
+	public static sumaresta mostCurrent;
 	static boolean afterFirstLayout;
 	static boolean isFirst = true;
     private static boolean processGlobalsRun = false;
@@ -25,7 +25,7 @@ public class suma1 extends Activity implements B4AActivity{
     ActivityWrapper _activity;
     java.util.ArrayList<B4AMenuItem> menuItems;
 	public static final boolean fullScreen = false;
-	public static final boolean includeTitle = true;
+	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
     public static boolean dontPause;
 
@@ -34,7 +34,7 @@ public class suma1 extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.suma1");
+			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.sumaresta");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -43,7 +43,7 @@ public class suma1 extends Activity implements B4AActivity{
 		else if (previousOne != null) {
 			Activity p = previousOne.get();
 			if (p != null && p != this) {
-                BA.LogInfo("Killing previous instance (suma1).");
+                BA.LogInfo("Killing previous instance (sumaresta).");
 				p.finish();
 			}
 		}
@@ -86,7 +86,7 @@ public class suma1 extends Activity implements B4AActivity{
 	private void afterFirstLayout() {
         if (this != mostCurrent)
 			return;
-		activityBA = new BA(this, layout, processBA, "b4a.example", "b4a.example.suma1");
+		activityBA = new BA(this, layout, processBA, "b4a.example", "b4a.example.sumaresta");
         
         processBA.sharedProcessBA.activityBA = new java.lang.ref.WeakReference<BA>(activityBA);
         anywheresoftware.b4a.objects.ViewWrapper.lastId = 0;
@@ -95,19 +95,19 @@ public class suma1 extends Activity implements B4AActivity{
         if (BA.isShellModeRuntimeCheck(processBA)) {
 			if (isFirst)
 				processBA.raiseEvent2(null, true, "SHELL", false);
-			processBA.raiseEvent2(null, true, "CREATE", true, "b4a.example.suma1", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
+			processBA.raiseEvent2(null, true, "CREATE", true, "b4a.example.sumaresta", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
 			_activity.reinitializeForShell(activityBA, "activity");
 		}
         initializeProcessGlobals();		
         initializeGlobals();
         
-        BA.LogInfo("** Activity (suma1) Create, isFirst = " + isFirst + " **");
+        BA.LogInfo("** Activity (sumaresta) Create, isFirst = " + isFirst + " **");
         processBA.raiseEvent2(null, true, "activity_create", false, isFirst);
 		isFirst = false;
 		if (this != mostCurrent)
 			return;
         processBA.setActivityPaused(false);
-        BA.LogInfo("** Activity (suma1) Resume **");
+        BA.LogInfo("** Activity (sumaresta) Resume **");
         processBA.raiseEvent(null, "activity_resume");
         if (android.os.Build.VERSION.SDK_INT >= 11) {
 			try {
@@ -196,7 +196,7 @@ public class suma1 extends Activity implements B4AActivity{
 		}
 	}
     public static Class<?> getObject() {
-		return suma1.class;
+		return sumaresta.class;
 	}
     private Boolean onKeySubExist = null;
     private Boolean onKeyUpSubExist = null;
@@ -268,9 +268,9 @@ public class suma1 extends Activity implements B4AActivity{
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
         if (!dontPause)
-            BA.LogInfo("** Activity (suma1) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+            BA.LogInfo("** Activity (sumaresta) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
         else
-            BA.LogInfo("** Activity (suma1) Pause event (activity is not paused). **");
+            BA.LogInfo("** Activity (sumaresta) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
         if (!dontPause) {
@@ -307,11 +307,11 @@ public class suma1 extends Activity implements B4AActivity{
     		this.activity = new WeakReference<Activity>(activity);
     	}
 		public void run() {
-            suma1 mc = mostCurrent;
+            sumaresta mc = mostCurrent;
 			if (mc == null || mc != activity.get())
 				return;
 			processBA.setActivityPaused(false);
-            BA.LogInfo("** Activity (suma1) Resume **");
+            BA.LogInfo("** Activity (sumaresta) Resume **");
             if (mc != mostCurrent)
                 return;
 		    processBA.raiseEvent(mc._activity, "activity_resume", (Object[])null);
@@ -335,15 +335,6 @@ public class suma1 extends Activity implements B4AActivity{
             
     }
 
-
-
-public static void initializeProcessGlobals() {
-             try {
-                Class.forName(BA.applicationContext.getPackageName() + ".main").getMethod("initializeProcessGlobals").invoke(null, null);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-}
 public anywheresoftware.b4a.keywords.Common __c = null;
 public anywheresoftware.b4a.objects.PanelWrapper _pnlscreen = null;
 public anywheresoftware.b4a.objects.PanelWrapper _pnlmain = null;
@@ -356,24 +347,26 @@ public anywheresoftware.b4a.objects.LabelWrapper _lbln2 = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _btniniciar = null;
 public anywheresoftware.b4a.objects.EditTextWrapper _txtnum = null;
 public anywheresoftware.b4a.objects.LabelWrapper _lbloperation = null;
+public anywheresoftware.b4a.objects.PanelWrapper _pnlsumaresta = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblcombo = null;
 public b4a.example.main _main = null;
 public b4a.example.starter _starter = null;
 public b4a.example.mult _mult = null;
-public b4a.example.suma2 _suma2 = null;
-public b4a.example.tablas _tablas = null;
 public b4a.example.tools _tools = null;
+
+public static void initializeProcessGlobals() {
+             try {
+                Class.forName(BA.applicationContext.getPackageName() + ".main").getMethod("initializeProcessGlobals").invoke(null, null);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+}
 public static String  _activity_create(boolean _firsttime) throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
 anywheresoftware.b4a.objects.B4XViewWrapper _element = null;
-RDebugUtils.currentLine=851968;
- //BA.debugLineNum = 851968;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
-RDebugUtils.currentLine=851972;
- //BA.debugLineNum = 851972;BA.debugLine="Activity.LoadLayout(\"suma1\")";
-mostCurrent._activity.LoadLayout("suma1",mostCurrent.activityBA);
-RDebugUtils.currentLine=851974;
- //BA.debugLineNum = 851974;BA.debugLine="For Each element As B4XView In pnlMain";
+ //BA.debugLineNum = 31;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 35;BA.debugLine="Activity.LoadLayout(\"SumaResta\")";
+mostCurrent._activity.LoadLayout("SumaResta",mostCurrent.activityBA);
+ //BA.debugLineNum = 37;BA.debugLine="For Each element As B4XView In pnlMain";
 _element = new anywheresoftware.b4a.objects.B4XViewWrapper();
 {
 final anywheresoftware.b4a.BA.IterableList group2 = mostCurrent._pnlmain;
@@ -382,227 +375,209 @@ final int groupLen2 = group2.getSize()
 ;
 for (; index2 < groupLen2;index2++){
 _element = (anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(group2.Get(index2)));
-RDebugUtils.currentLine=851975;
- //BA.debugLineNum = 851975;BA.debugLine="element.Enabled = False";
-_element.setEnabled(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 38;BA.debugLine="element.Visible = False";
+_element.setVisible(anywheresoftware.b4a.keywords.Common.False);
  }
 };
-RDebugUtils.currentLine=851978;
- //BA.debugLineNum = 851978;BA.debugLine="End Sub";
+ //BA.debugLineNum = 41;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
-RDebugUtils.currentModule="suma1";
-RDebugUtils.currentLine=983040;
- //BA.debugLineNum = 983040;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
-RDebugUtils.currentLine=983042;
- //BA.debugLineNum = 983042;BA.debugLine="End Sub";
+ //BA.debugLineNum = 47;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 49;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
-RDebugUtils.currentLine=917504;
- //BA.debugLineNum = 917504;BA.debugLine="Sub Activity_Resume";
-RDebugUtils.currentLine=917506;
- //BA.debugLineNum = 917506;BA.debugLine="End Sub";
+ //BA.debugLineNum = 43;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 45;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnborrar_click() throws Exception{
+ //BA.debugLineNum = 64;BA.debugLine="Private Sub btnBorrar_Click";
+ //BA.debugLineNum = 65;BA.debugLine="If txtNum.Text <> \"\" Then";
+if ((mostCurrent._txtnum.getText()).equals("") == false) { 
+ //BA.debugLineNum = 66;BA.debugLine="txtNum.Text = txtNum.Text.SubString(1)";
+mostCurrent._txtnum.setText(BA.ObjectToCharSequence(mostCurrent._txtnum.getText().substring((int) (1))));
+ };
+ //BA.debugLineNum = 68;BA.debugLine="End Sub";
 return "";
 }
 public static String  _btniniciar_click() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "btniniciar_click", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btniniciar_click", null));}
-RDebugUtils.currentLine=1114112;
- //BA.debugLineNum = 1114112;BA.debugLine="Private Sub btnIniciar_Click";
-RDebugUtils.currentLine=1114113;
- //BA.debugLineNum = 1114113;BA.debugLine="Start";
+ //BA.debugLineNum = 56;BA.debugLine="Private Sub btnIniciar_Click";
+ //BA.debugLineNum = 57;BA.debugLine="Start";
 _start();
-RDebugUtils.currentLine=1114114;
- //BA.debugLineNum = 1114114;BA.debugLine="End Sub";
+ //BA.debugLineNum = 58;BA.debugLine="End Sub";
 return "";
 }
-public static String  _start() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "start", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "start", null));}
-anywheresoftware.b4a.objects.B4XViewWrapper _element = null;
+public static String  _btnsend_click() throws Exception{
+ //BA.debugLineNum = 60;BA.debugLine="Private Sub btnSend_Click";
+ //BA.debugLineNum = 61;BA.debugLine="CheckResult";
+_checkresult();
+ //BA.debugLineNum = 62;BA.debugLine="End Sub";
+return "";
+}
+public static String  _btnvolver_click() throws Exception{
+ //BA.debugLineNum = 51;BA.debugLine="Private Sub btnVolver_Click";
+ //BA.debugLineNum = 52;BA.debugLine="StartActivity(Main)";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._main.getObject()));
+ //BA.debugLineNum = 53;BA.debugLine="End Sub";
+return "";
+}
+public static String  _checkresult() throws Exception{
+int _num = 0;
+ //BA.debugLineNum = 130;BA.debugLine="Private Sub CheckResult";
+ //BA.debugLineNum = 131;BA.debugLine="If txtNum.Text == \"\" Then";
+if ((mostCurrent._txtnum.getText()).equals("")) { 
+ //BA.debugLineNum = 132;BA.debugLine="MsgboxAsync(\"ℹ Digita un número\", \"⚠  Error ⚠\")";
+anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("ℹ Digita un número"),BA.ObjectToCharSequence("⚠  Error ⚠"),processBA);
+ //BA.debugLineNum = 133;BA.debugLine="Return";
+if (true) return "";
+ };
+ //BA.debugLineNum = 136;BA.debugLine="Dim num As Int = txtNum.Text";
+_num = (int)(Double.parseDouble(mostCurrent._txtnum.getText()));
+ //BA.debugLineNum = 138;BA.debugLine="If num == res Then";
+if (_num==_res) { 
+ //BA.debugLineNum = 139;BA.debugLine="ToastMessageShow(\"Correcto! 🎉\", False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Correcto! 🎉"),anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 140;BA.debugLine="Main.combo = Main.combo + 1";
+mostCurrent._main._combo /*int*/  = (int) (mostCurrent._main._combo /*int*/ +1);
+ }else {
+ //BA.debugLineNum = 143;BA.debugLine="ToastMessageShow(\"Incorrecto! 😔\", False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Incorrecto! 😔"),anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 144;BA.debugLine="Main.combo = 0";
+mostCurrent._main._combo /*int*/  = (int) (0);
+ };
+ //BA.debugLineNum = 146;BA.debugLine="lblCombo.Text = \"COMBO: \" & Main.combo";
+mostCurrent._lblcombo.setText(BA.ObjectToCharSequence("COMBO: "+BA.NumberToString(mostCurrent._main._combo /*int*/ )));
+ //BA.debugLineNum = 147;BA.debugLine="GenerateNum";
+_generatenum();
+ //BA.debugLineNum = 148;BA.debugLine="End Sub";
+return "";
+}
+public static String  _generatenum() throws Exception{
 byte _aux = (byte)0;
-RDebugUtils.currentLine=1245184;
- //BA.debugLineNum = 1245184;BA.debugLine="Private Sub Start";
-RDebugUtils.currentLine=1245185;
- //BA.debugLineNum = 1245185;BA.debugLine="btnIniciar.Enabled = False";
-mostCurrent._btniniciar.setEnabled(anywheresoftware.b4a.keywords.Common.False);
-RDebugUtils.currentLine=1245188;
- //BA.debugLineNum = 1245188;BA.debugLine="For Each element As B4XView In pnlMain";
-_element = new anywheresoftware.b4a.objects.B4XViewWrapper();
-{
-final anywheresoftware.b4a.BA.IterableList group2 = mostCurrent._pnlmain;
-final int groupLen2 = group2.getSize()
-;int index2 = 0;
-;
-for (; index2 < groupLen2;index2++){
-_element = (anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(group2.Get(index2)));
-RDebugUtils.currentLine=1245189;
- //BA.debugLineNum = 1245189;BA.debugLine="element.Enabled = True";
-_element.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- }
-};
-RDebugUtils.currentLine=1245192;
- //BA.debugLineNum = 1245192;BA.debugLine="txtNum.Text = \"\"";
-mostCurrent._txtnum.setText(BA.ObjectToCharSequence(""));
-RDebugUtils.currentLine=1245193;
- //BA.debugLineNum = 1245193;BA.debugLine="txtNum.RequestFocus";
-mostCurrent._txtnum.RequestFocus();
-RDebugUtils.currentLine=1245195;
- //BA.debugLineNum = 1245195;BA.debugLine="Select Main.btnVal";
+ //BA.debugLineNum = 74;BA.debugLine="Private Sub GenerateNum";
+ //BA.debugLineNum = 75;BA.debugLine="Select Main.btnVal";
 switch (BA.switchObjectToInt(mostCurrent._main._btnval /*byte*/ ,(byte) (1),(byte) (2))) {
 case 0: {
-RDebugUtils.currentLine=1245197;
- //BA.debugLineNum = 1245197;BA.debugLine="num1 = Rnd(1, 11)";
+ //BA.debugLineNum = 77;BA.debugLine="num1 = Rnd(1, 11)";
 _num1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (11)));
-RDebugUtils.currentLine=1245198;
- //BA.debugLineNum = 1245198;BA.debugLine="num2 = Rnd(1, 11)";
+ //BA.debugLineNum = 78;BA.debugLine="num2 = Rnd(1, 11)";
 _num2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (11)));
  break; }
 case 1: {
-RDebugUtils.currentLine=1245200;
- //BA.debugLineNum = 1245200;BA.debugLine="num1 = Rnd(1, 101)";
-_num1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (101)));
-RDebugUtils.currentLine=1245201;
- //BA.debugLineNum = 1245201;BA.debugLine="num2 = Rnd(1, 101)";
-_num2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (1),(int) (101)));
+ //BA.debugLineNum = 81;BA.debugLine="num1 = Rnd(11, 101)";
+_num1 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (11),(int) (101)));
+ //BA.debugLineNum = 82;BA.debugLine="num2 = Rnd(11, 101)";
+_num2 = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (11),(int) (101)));
  break; }
 }
 ;
-RDebugUtils.currentLine=1245204;
- //BA.debugLineNum = 1245204;BA.debugLine="operation = Rnd(0, 2)";
+ //BA.debugLineNum = 85;BA.debugLine="operation = Rnd(0, 2)";
 _operation = (byte) (anywheresoftware.b4a.keywords.Common.Rnd((int) (0),(int) (2)));
-RDebugUtils.currentLine=1245206;
- //BA.debugLineNum = 1245206;BA.debugLine="Select operation";
+ //BA.debugLineNum = 87;BA.debugLine="Select operation";
 switch (BA.switchObjectToInt(_operation,(byte) (0),(byte) (1))) {
 case 0: {
-RDebugUtils.currentLine=1245208;
- //BA.debugLineNum = 1245208;BA.debugLine="lblOperation.Text = \"➕\"";
+ //BA.debugLineNum = 89;BA.debugLine="lblOperation.Text = \"➕\"";
 mostCurrent._lbloperation.setText(BA.ObjectToCharSequence("➕"));
-RDebugUtils.currentLine=1245209;
- //BA.debugLineNum = 1245209;BA.debugLine="res = num1 + num2";
+ //BA.debugLineNum = 90;BA.debugLine="res = num1 + num2";
 _res = (int) (_num1+_num2);
  break; }
 case 1: {
-RDebugUtils.currentLine=1245212;
- //BA.debugLineNum = 1245212;BA.debugLine="Dim aux As Byte = 0";
+ //BA.debugLineNum = 93;BA.debugLine="Dim aux As Byte = 0";
 _aux = (byte) (0);
-RDebugUtils.currentLine=1245213;
- //BA.debugLineNum = 1245213;BA.debugLine="lblOperation.Text = \"➖\"";
+ //BA.debugLineNum = 94;BA.debugLine="lblOperation.Text = \"➖\"";
 mostCurrent._lbloperation.setText(BA.ObjectToCharSequence("➖"));
-RDebugUtils.currentLine=1245215;
- //BA.debugLineNum = 1245215;BA.debugLine="If num2 > num1 Then";
+ //BA.debugLineNum = 96;BA.debugLine="If num2 > num1 Then";
 if (_num2>_num1) { 
-RDebugUtils.currentLine=1245216;
- //BA.debugLineNum = 1245216;BA.debugLine="aux = num1";
+ //BA.debugLineNum = 97;BA.debugLine="aux = num1";
 _aux = _num1;
-RDebugUtils.currentLine=1245218;
- //BA.debugLineNum = 1245218;BA.debugLine="num1 = num2";
+ //BA.debugLineNum = 99;BA.debugLine="num1 = num2";
 _num1 = _num2;
-RDebugUtils.currentLine=1245219;
- //BA.debugLineNum = 1245219;BA.debugLine="num2 = aux";
+ //BA.debugLineNum = 100;BA.debugLine="num2 = aux";
 _num2 = _aux;
  };
-RDebugUtils.currentLine=1245222;
- //BA.debugLineNum = 1245222;BA.debugLine="res = num1 - num2";
+ //BA.debugLineNum = 103;BA.debugLine="res = num1 - num2";
 _res = (int) (_num1-_num2);
  break; }
 }
 ;
-RDebugUtils.currentLine=1245226;
- //BA.debugLineNum = 1245226;BA.debugLine="Log(res)";
-anywheresoftware.b4a.keywords.Common.LogImpl("51245226",BA.NumberToString(_res),0);
-RDebugUtils.currentLine=1245228;
- //BA.debugLineNum = 1245228;BA.debugLine="lblN1.Text = num1";
+ //BA.debugLineNum = 107;BA.debugLine="Log(res)";
+anywheresoftware.b4a.keywords.Common.LogImpl("11048609",BA.NumberToString(_res),0);
+ //BA.debugLineNum = 109;BA.debugLine="lblN1.Text = num1";
 mostCurrent._lbln1.setText(BA.ObjectToCharSequence(_num1));
-RDebugUtils.currentLine=1245229;
- //BA.debugLineNum = 1245229;BA.debugLine="lblN2.Text = num2";
+ //BA.debugLineNum = 110;BA.debugLine="lblN2.Text = num2";
 mostCurrent._lbln2.setText(BA.ObjectToCharSequence(_num2));
-RDebugUtils.currentLine=1245231;
- //BA.debugLineNum = 1245231;BA.debugLine="End Sub";
+ //BA.debugLineNum = 112;BA.debugLine="txtNum.Text = \"\"";
+mostCurrent._txtnum.setText(BA.ObjectToCharSequence(""));
+ //BA.debugLineNum = 113;BA.debugLine="txtNum.RequestFocus";
+mostCurrent._txtnum.RequestFocus();
+ //BA.debugLineNum = 115;BA.debugLine="End Sub";
 return "";
 }
-public static String  _btnsend_click() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "btnsend_click", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btnsend_click", null));}
-RDebugUtils.currentLine=1179648;
- //BA.debugLineNum = 1179648;BA.debugLine="Private Sub btnSend_Click";
-RDebugUtils.currentLine=1179649;
- //BA.debugLineNum = 1179649;BA.debugLine="CheckResult";
-_checkresult();
-RDebugUtils.currentLine=1179650;
- //BA.debugLineNum = 1179650;BA.debugLine="End Sub";
+public static String  _globals() throws Exception{
+ //BA.debugLineNum = 12;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 17;BA.debugLine="Private pnlScreen As Panel";
+mostCurrent._pnlscreen = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 18;BA.debugLine="Private pnlMain As Panel";
+mostCurrent._pnlmain = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 20;BA.debugLine="Private num1, num2, operation As Byte";
+_num1 = (byte)0;
+_num2 = (byte)0;
+_operation = (byte)0;
+ //BA.debugLineNum = 21;BA.debugLine="Private res As Int";
+_res = 0;
+ //BA.debugLineNum = 23;BA.debugLine="Private lblN1, lblN2 As Label";
+mostCurrent._lbln1 = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._lbln2 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 24;BA.debugLine="Private btnIniciar As Button";
+mostCurrent._btniniciar = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 25;BA.debugLine="Private txtNum As EditText";
+mostCurrent._txtnum = new anywheresoftware.b4a.objects.EditTextWrapper();
+ //BA.debugLineNum = 26;BA.debugLine="Private lblOperation As Label";
+mostCurrent._lbloperation = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 27;BA.debugLine="Private pnlSumaResta As Panel";
+mostCurrent._pnlsumaresta = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 28;BA.debugLine="Private lblCombo As Label";
+mostCurrent._lblcombo = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 29;BA.debugLine="End Sub";
 return "";
 }
-public static String  _checkresult() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "checkresult", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "checkresult", null));}
-int _num = 0;
-RDebugUtils.currentLine=1310720;
- //BA.debugLineNum = 1310720;BA.debugLine="Private Sub CheckResult";
-RDebugUtils.currentLine=1310721;
- //BA.debugLineNum = 1310721;BA.debugLine="If txtNum.Text == \"\" Then";
-if ((mostCurrent._txtnum.getText()).equals("")) { 
-RDebugUtils.currentLine=1310722;
- //BA.debugLineNum = 1310722;BA.debugLine="MsgboxAsync(\"Favor de digitar un número\", \"⚠ Err";
-anywheresoftware.b4a.keywords.Common.MsgboxAsync(BA.ObjectToCharSequence("Favor de digitar un número"),BA.ObjectToCharSequence("⚠ Error"),processBA);
-RDebugUtils.currentLine=1310723;
- //BA.debugLineNum = 1310723;BA.debugLine="Return";
-if (true) return "";
- };
-RDebugUtils.currentLine=1310726;
- //BA.debugLineNum = 1310726;BA.debugLine="Dim num As Int = txtNum.Text";
-_num = (int)(Double.parseDouble(mostCurrent._txtnum.getText()));
-RDebugUtils.currentLine=1310728;
- //BA.debugLineNum = 1310728;BA.debugLine="If num == res Then";
-if (_num==_res) { 
-RDebugUtils.currentLine=1310729;
- //BA.debugLineNum = 1310729;BA.debugLine="ToastMessageShow(\"Correcto! 🎉\", False)";
-anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Correcto! 🎉"),anywheresoftware.b4a.keywords.Common.False);
- }else {
-RDebugUtils.currentLine=1310731;
- //BA.debugLineNum = 1310731;BA.debugLine="ToastMessageShow(\"Incorrecto! 😔\", False)";
-anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Incorrecto! 😔"),anywheresoftware.b4a.keywords.Common.False);
- };
-RDebugUtils.currentLine=1310734;
- //BA.debugLineNum = 1310734;BA.debugLine="Start";
-_start();
-RDebugUtils.currentLine=1310735;
- //BA.debugLineNum = 1310735;BA.debugLine="End Sub";
+public static String  _process_globals() throws Exception{
+ //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 10;BA.debugLine="End Sub";
 return "";
 }
-public static String  _btnvolver_click() throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "btnvolver_click", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "btnvolver_click", null));}
-RDebugUtils.currentLine=1048576;
- //BA.debugLineNum = 1048576;BA.debugLine="Private Sub btnVolver_Click";
-RDebugUtils.currentLine=1048577;
- //BA.debugLineNum = 1048577;BA.debugLine="StartActivity(Main)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._main.getObject()));
-RDebugUtils.currentLine=1048578;
- //BA.debugLineNum = 1048578;BA.debugLine="End Sub";
+public static String  _start() throws Exception{
+anywheresoftware.b4a.objects.B4XViewWrapper _element = null;
+ //BA.debugLineNum = 117;BA.debugLine="Private Sub Start";
+ //BA.debugLineNum = 118;BA.debugLine="btnIniciar.Visible = False";
+mostCurrent._btniniciar.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 120;BA.debugLine="For Each element As B4XView In pnlMain";
+_element = new anywheresoftware.b4a.objects.B4XViewWrapper();
+{
+final anywheresoftware.b4a.BA.IterableList group2 = mostCurrent._pnlmain;
+final int groupLen2 = group2.getSize()
+;int index2 = 0;
+;
+for (; index2 < groupLen2;index2++){
+_element = (anywheresoftware.b4a.objects.B4XViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.B4XViewWrapper(), (java.lang.Object)(group2.Get(index2)));
+ //BA.debugLineNum = 121;BA.debugLine="element.Visible = True";
+_element.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ }
+};
+ //BA.debugLineNum = 124;BA.debugLine="lblCombo.Text = \"COMBO: 0\"";
+mostCurrent._lblcombo.setText(BA.ObjectToCharSequence("COMBO: 0"));
+ //BA.debugLineNum = 126;BA.debugLine="GenerateNum";
+_generatenum();
+ //BA.debugLineNum = 128;BA.debugLine="End Sub";
 return "";
 }
 public static String  _txtnum_textchanged(String _old,String _new) throws Exception{
-RDebugUtils.currentModule="suma1";
-if (Debug.shouldDelegate(mostCurrent.activityBA, "txtnum_textchanged", false))
-	 {return ((String) Debug.delegate(mostCurrent.activityBA, "txtnum_textchanged", new Object[] {_old,_new}));}
-RDebugUtils.currentLine=2949120;
- //BA.debugLineNum = 2949120;BA.debugLine="Private Sub txtNum_TextChanged (Old As String, New";
-RDebugUtils.currentLine=2949121;
- //BA.debugLineNum = 2949121;BA.debugLine="txtNum.SelectionStart = 0";
+ //BA.debugLineNum = 70;BA.debugLine="Private Sub txtNum_TextChanged (Old As String, New";
+ //BA.debugLineNum = 71;BA.debugLine="txtNum.SelectionStart = 0";
 mostCurrent._txtnum.setSelectionStart((int) (0));
-RDebugUtils.currentLine=2949122;
- //BA.debugLineNum = 2949122;BA.debugLine="End Sub";
+ //BA.debugLineNum = 72;BA.debugLine="End Sub";
 return "";
 }
 }

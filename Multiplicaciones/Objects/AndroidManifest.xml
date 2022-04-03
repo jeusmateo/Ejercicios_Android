@@ -22,44 +22,37 @@
 			android:launchMode="singleTop"
 			android:name=".main"
 			android:label="Operaciones"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:exported="true">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />
 			   <category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 			
 		</activity>
-		<service android:name=".starter">
-		</service>
-		<receiver android:name=".starter$starter_BR">
-		</receiver>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".suma1"
+			android:name=".sumaresta"
 			android:label="Operaciones"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:exported="true">
 		</activity>
+		<service
+			android:name=".starter"
+			android:exported="true">
+		</service>
+		<receiver
+			android:name=".starter$starter_BR"
+			android:exported="true">
+		</receiver>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".mult"
 			android:label="Operaciones"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".suma2"
-			android:label="Operaciones"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".tablas"
-			android:label="Operaciones"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:exported="true">
 		</activity>
 	</application>
 </manifest>

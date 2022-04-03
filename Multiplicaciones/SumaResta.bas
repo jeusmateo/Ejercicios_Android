@@ -6,7 +6,7 @@ Version=11.2
 @EndOfDesignText@
 #Region  Activity Attributes 
 	#FullScreen: False
-	#IncludeTitle: True
+	#IncludeTitle: False
 #End Region
 
 Sub Process_Globals
@@ -31,6 +31,7 @@ Sub Globals
 	Private txtNum As EditText
 	Private lblOperation As Label
 	Private pnlSumaResta As Panel
+	Private lblCombo As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -40,7 +41,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("SumaResta")
 	
 	For Each element As B4XView In pnlMain
-		element.Enabled = False
+		element.Visible = False
 	Next
 	
 End Sub
@@ -66,34 +67,28 @@ Private Sub btnSend_Click
 	CheckResult
 End Sub
 
+Private Sub btnBorrar_Click
+	If txtNum.Text <> "" Then
+		txtNum.Text = txtNum.Text.SubString(1)
+	End If
+End Sub
+
 Private Sub txtNum_TextChanged (Old As String, New As String)
 	txtNum.SelectionStart = 0
 End Sub
 
-
-
-Private Sub Start
-	btnIniciar.Enabled = False
-	
-	For Each element As B4XView In pnlMain
-		element.Enabled = True
-	Next
-	
-	txtNum.Text = ""
-	txtNum.RequestFocus
-	
+Private Sub GenerateNum
 	Select Main.btnVal
 		Case 1:
 			num1 = Rnd(1, 11)
 			num2 = Rnd(1, 11)
 			
 		Case 2:
-			num1 = Rnd(1, 101)
-			num2 = Rnd(1, 101)
+			num1 = Rnd(11, 101)
+			num2 = Rnd(11, 101)
 	End Select
 	
 	operation = Rnd(0, 2)
-	
 	
 	Select operation
 		Case 0:
@@ -114,17 +109,33 @@ Private Sub Start
 			res = num1 - num2
 			
 	End Select
-
+	
 	Log(res)
 	
 	lblN1.Text = num1
 	lblN2.Text = num2
+	
+	txtNum.Text = ""
+	txtNum.RequestFocus
+	
+End Sub
 
+Private Sub Start
+	btnIniciar.Visible = False
+	
+	For Each element As B4XView In pnlMain
+		element.Visible = True
+	Next
+	
+	lblCombo.Text = "COMBO: 0"
+	
+	GenerateNum
+	
 End Sub
 
 Private Sub CheckResult
 	If txtNum.Text == "" Then
-		MsgboxAsync("Digita un número", "⚠Syntax Eror")
+		MsgboxAsync("ℹ Digita un número", "⚠  Error ⚠")
 		Return
 	End If
 	
@@ -132,9 +143,14 @@ Private Sub CheckResult
 
 	If num == res Then
 		ToastMessageShow("Correcto! 🎉", False)
+		Main.combo = Main.combo + 1
+
 	Else
 		ToastMessageShow("Incorrecto! 😔", False)
+		Main.combo = 0
 	End If
-	
-	Start
+	lblCombo.Text = "COMBO: " & Main.combo
+	GenerateNum
 End Sub
+
+

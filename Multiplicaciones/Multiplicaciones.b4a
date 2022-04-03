@@ -1,36 +1,44 @@
 ﻿Build1=Default,b4a.example
 File1=Main.bal
-File10=Roboto-Medium.ttf
-File11=Roboto-MediumItalic.ttf
-File12=Roboto-Regular.ttf
-File13=RobotoSlab-VariableFont_wght.ttf
-File14=Roboto-Thin.ttf
-File15=Roboto-ThinItalic.ttf
-File16=SumaResta.bal
+File10=Roboto-LightItalic.ttf
+File11=Roboto-Medium.ttf
+File12=Roboto-MediumItalic.ttf
+File13=Roboto-Regular.ttf
+File14=RobotoSlab-VariableFont_wght.ttf
+File15=Roboto-Thin.ttf
+File16=Roboto-ThinItalic.ttf
+File17=SumaResta.bal
+File18=sumaresta10.png
+File19=sumaresta100.png
 File2=Multi.bal
-File3=Roboto-Black.ttf
-File4=Roboto-BlackItalic.ttf
-File5=Roboto-Bold.ttf
-File6=Roboto-BoldItalic.ttf
-File7=Roboto-Italic.ttf
-File8=Roboto-Light.ttf
-File9=Roboto-LightItalic.ttf
+File20=tablas.png
+File3=Multi100.png
+File4=Roboto-Black.ttf
+File5=Roboto-BlackItalic.ttf
+File6=Roboto-Bold.ttf
+File7=Roboto-BoldItalic.ttf
+File8=Roboto-Italic.ttf
+File9=Roboto-Light.ttf
 FileGroup1=Default Group
-FileGroup10=Nuevo Grupo
-FileGroup11=Nuevo Grupo
-FileGroup12=Nuevo Grupo
-FileGroup13=Nuevo Grupo
-FileGroup14=Nuevo Grupo
-FileGroup15=Nuevo Grupo
-FileGroup16=Default Group
+FileGroup10=New Group
+FileGroup11=New Group
+FileGroup12=New Group
+FileGroup13=New Group
+FileGroup14=New Group
+FileGroup15=New Group
+FileGroup16=New Group
+FileGroup17=Default Group
+FileGroup18=New Group
+FileGroup19=New Group
 FileGroup2=Default Group
-FileGroup3=Nuevo Grupo
-FileGroup4=Nuevo Grupo
-FileGroup5=Nuevo Grupo
-FileGroup6=Nuevo Grupo
-FileGroup7=Nuevo Grupo
-FileGroup8=Nuevo Grupo
-FileGroup9=Nuevo Grupo
+FileGroup20=New Group
+FileGroup3=New Group
+FileGroup4=New Group
+FileGroup5=New Group
+FileGroup6=New Group
+FileGroup7=New Group
+FileGroup8=New Group
+FileGroup9=New Group
 Group=Default Group
 Library1=core
 Library2=xui
@@ -39,7 +47,7 @@ Module1=Mult
 Module2=Starter
 Module3=SumaResta
 Module4=Tools
-NumberOfFiles=16
+NumberOfFiles=20
 NumberOfLibraries=2
 NumberOfModules=4
 Version=11.5
@@ -64,6 +72,7 @@ Sub Process_Globals
 	'These variables can be accessed from all modules.
 	Private xui As XUI
 	Public btnVal As Byte
+	Public combo As Int = 0
 End Sub
 
 Sub Globals
@@ -95,14 +104,12 @@ Private Sub ElegirActividad_Click
 	btnVal = btn.Tag
 
 	Select btnVal
-		Case 1:
+		Case 1, 2:
 			StartActivity(SumaResta)
-		Case 2:
-			StartActivity(SumaResta)
-		Case 3:
+			
+		Case 3, 4:
 			StartActivity(Mult)
-		Case 4:
-			StartActivity(Mult)
+
 	End Select
 	
 End Sub
