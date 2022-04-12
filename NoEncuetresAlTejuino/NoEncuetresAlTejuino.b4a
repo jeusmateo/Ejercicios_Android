@@ -1,0 +1,234 @@
+﻿Build1=Default,b4a.example
+File1=Arcade fast flow1.ogg
+File10=TejuinoBueno.png
+File11=TejuinoMalo.png
+File2=Cora.png
+File3=Cora2.png
+File4=CoraVacio.png
+File5=Hit_Hurt8.wav
+File6=Layout.bal
+File7=PanelBG.png
+File8=Pickup_Coin65.wav
+File9=Placeholder.png
+FileGroup1=New Group
+FileGroup10=New Group
+FileGroup11=New Group
+FileGroup2=New Group
+FileGroup3=New Group
+FileGroup4=New Group
+FileGroup5=New Group
+FileGroup6=Default Group
+FileGroup7=New Group
+FileGroup8=New Group
+FileGroup9=New Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=11
+NumberOfLibraries=2
+NumberOfModules=1
+Version=11.5
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Atrapa Tejuinos
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+	Private timer As Timer
+	Private sound, coin, bgMusic As MediaPlayer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private Panel1 As Panel
+	Private btnPlay As Button
+	Private lblScore As Label
+	
+	Private r1, r2, r3, r4, r5, m1, m2 As Byte
+	
+	Private score As Int
+	
+	Private lives, time As Byte
+	
+	Private Panel2 As Panel
+	
+	
+	Private lblTime As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	sound.Initialize
+	coin.Initialize
+	bgMusic.Initialize
+	
+	Activity.Title = ""
+	
+	sound.Load(File.DirAssets, "Hit_Hurt8.wav")
+	coin.Load(File.DirAssets, "Pickup_Coin65.wav")
+	bgMusic.Load(File.DirAssets, "Arcade fast flow1.ogg")
+	
+	bgMusic.Looping = True
+	bgMusic.Play
+	
+		
+	For Each btn As Button In Panel1
+		btn.Enabled = False
+		btn.SetBackgroundImage(LoadBitmap(File.DirAssets, "Placeholder.png"))
+	Next
+
+	timer.Initialize("Timer", 1000)
+	
+	
+End Sub
+
+Sub Activity_Resume
+	bgMusic.Play
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	bgMusic.Pause
+End Sub
+
+Private Sub Timer_Tick
+	time = time - 1
+	lblTime.Text = "Tiempo: " & time
+	
+	If time <= 0 Then
+		MsgboxAsync("Su puntaje fue de " & score, "SE HA ACABADO EL TIEMPO")
+		GameOver
+		Return
+	End If
+	
+	
+	For Each btn As Button In Panel1
+		btn.SetBackgroundImage(LoadBitmap(File.DirAssets, "Placeholder.png"))
+		btn.Enabled = True
+	Next
+	
+	GenerateNum
+	
+	Panel1.GetView(r1).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel1.GetView(r2).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel1.GetView(r3).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel1.GetView(r4).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	Panel1.GetView(r5).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoBueno.png"))
+	
+	Panel1.GetView(m1).SetBackgroundImage(LoadBitmap(File.DirAssets, Null))
+	Panel1.GetView(m2).SetBackgroundImage(LoadBitmap(File.DirAssets, "TejuinoMalo.png"))
+	
+End Sub
+
+
+Private Sub GenerateNum	
+'	Dim arRand() As Byte
+'	
+'	arRand = Array As Byte(r1, r2, r3, r4, r5)
+
+	r1 = 0
+	r2 = 0
+	r3 = 0
+	r4 = 0
+	r5 = 0
+	m1 = 0
+	m2 = 0
+	
+	Do Until (r1 <> r2 And r2 <> r3 And r3 <> r4 And r4 <> r5 And r5 <> m1 And m1 <> m2)
+		r1 = Rnd(0, 20)
+		r2 = Rnd(0, 20)
+		r3 = Rnd(0, 20)
+		r4 = Rnd(0, 20)
+		r5 = Rnd(0, 20)
+		m1 = Rnd(0, 20)
+		m2 = Rnd(0, 20)
+	Loop
+	
+	Log(r1 & " " & r2 & " " & r3 & " " & r4 & " " & r5 & " " & m1 &  " " & m2)
+
+End Sub
+
+Private Sub StartGame
+	' Inicializa valores
+	score = 0
+	time = 40
+	lives = 3
+	
+	btnPlay.Enabled = False
+	lblScore.Text = "Score: " & score
+	lblTime.Text = "Tiempo: " & time
+	
+	' Habilita las vistas
+	For Each imgView As ImageView In Panel2
+		imgView.SetBackgroundImage(LoadBitmap(File.DirAssets, "Cora2.png"))
+	Next
+	
+	For Each btn As Button In Panel1
+		btn.Enabled = True
+	Next
+	
+	timer.Enabled = True
+	
+End Sub
+
+Private Sub GameOver
+	timer.Enabled = False	
+	btnPlay.Enabled = True
+	
+	For Each btn As Button In Panel1
+		btn.Enabled = False
+		btn.Visible = True
+		btn.SetBackgroundImage(LoadBitmap(File.DirAssets, "Placeholder.png"))
+	Next
+End Sub
+
+
+Private Sub btnPlay_Click
+	StartGame
+	
+End Sub
+
+
+Private Sub TejuinoCheck_Click
+	Dim button As Button
+	Dim btnValue As Byte
+	
+	
+	button = Sender
+	btnValue = button.Tag
+	
+	button.Enabled = False
+	button.SetBackgroundImage(LoadBitmap(File.DirAssets, "Placeholder.png"))
+	
+	If btnValue == m1 Or btnValue == m2 Then
+		lives = lives - 1
+		sound.Play
+		
+		Panel2.GetView(lives).SetBackgroundImage(LoadBitmap(File.DirAssets, "CoraVacio.png"))
+		
+		If lives == 0 Then
+			MsgboxAsync("Se ha quedado sin vida", "GAME OVER")
+			GameOver
+		End If
+		
+	Else If btnValue == r1 Or btnValue == r2 Or btnValue == r3 Or btnValue == r4 Or btnValue == r5 Then
+		coin.Play
+		score = score + 5
+		lblScore.Text = "Score: " & score	
+	End If
+	
+End Sub

@@ -1,0 +1,166 @@
+﻿Build1=Default,b4a.example
+File1=bomba.png
+File2=cara.png
+File3=Layout.bal
+FileGroup1=Nuevo Grupo
+FileGroup2=Nuevo Grupo
+FileGroup3=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=3
+NumberOfLibraries=2
+NumberOfModules=1
+Version=11.2
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Buscaminas
+	#VersionCode: 1
+	#VersionName: D:
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private Button1 As Button
+	Private Button2 As Button
+	Private Button3 As Button
+	Private Button4 As Button
+	Private Button5 As Button
+	Private Button6 As Button
+	Private Button7 As Button
+	Private Button8 As Button
+	
+	Private Buttons As List
+	
+	Private rand, count As Byte
+
+	
+	Private btnPlay As Button
+	Private lblCount As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	Buttons.Initialize
+	
+'	Buttons.AddAll(Array As Button (Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8))
+	Buttons.Add(Button1)
+	Buttons.Add(Button2)
+	Buttons.Add(Button3)
+	Buttons.Add(Button4)
+	Buttons.Add(Button5)
+	Buttons.Add(Button6)
+	Buttons.Add(Button7)
+	Buttons.Add(Button8)
+	
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Private Sub ButtonsVisibility(bool As Boolean)
+	For i = 0 To Buttons.Size - 1
+		Buttons.Get(i).As(Button).Visible = bool
+	Next
+End Sub
+
+Private Sub win
+	MsgboxAsync("G A N A S T E", "Game Over")
+	btnPlay.Visible = True
+	ButtonsVisibility(False)
+	lblCount.Text = "G A N A S T E"
+End Sub
+
+Private Sub loose
+	MsgboxAsync("P E R D I S T E", "Game Over")
+	btnPlay.Visible = True
+	ButtonsVisibility(False)
+	lblCount.Text = "P E R D I S T E"
+End Sub
+
+Private Sub btnPlay_Click
+	rand = Rnd(1, 9)
+	count = 0
+	lblCount.Text = "Aciertos: " & count
+	Log(rand)
+	
+	ButtonsVisibility(True)
+	btnPlay.Visible = False
+End Sub
+
+Private Sub CheckButton(button As Button, numButton As Byte)
+	button.Visible = False
+	count = count + 1
+	
+	lblCount.Text = "Aciertos: " & count
+	
+	If count == 6 Then
+		win
+		
+	Else If (numButton == rand) Then
+		loose
+	
+	End If
+	
+End Sub
+
+
+Private Sub Button8_Click
+	CheckButton(Button8, 8)
+End Sub
+
+Private Sub Button7_Click
+	CheckButton(Button7, 7)
+	
+End Sub
+
+Private Sub Button6_Click
+	CheckButton(Button6, 6)
+	
+End Sub
+
+Private Sub Button5_Click
+	CheckButton(Button5, 5)
+	
+End Sub
+
+Private Sub Button4_Click
+	CheckButton(Button4, 4)
+	
+End Sub
+
+Private Sub Button3_Click
+	CheckButton(Button3, 3)
+	
+End Sub
+
+Private Sub Button2_Click
+	CheckButton(Button2, 2)
+	
+End Sub
+
+Private Sub Button1_Click
+	CheckButton(Button1, 1)
+	
+End Sub
