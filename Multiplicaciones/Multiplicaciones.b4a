@@ -1,42 +1,59 @@
 ﻿Build1=Default,b4a.example
-File1=Main.bal
-File10=Roboto-MediumItalic.ttf
-File11=Roboto-Regular.ttf
-File12=RobotoSlab-VariableFont_wght.ttf
-File13=Roboto-Thin.ttf
-File14=Roboto-ThinItalic.ttf
-File15=Suma1.bal
-File2=Roboto-Black.ttf
-File3=Roboto-BlackItalic.ttf
-File4=Roboto-Bold.ttf
-File5=Roboto-BoldItalic.ttf
-File6=Roboto-Italic.ttf
-File7=Roboto-Light.ttf
-File8=Roboto-LightItalic.ttf
-File9=Roboto-Medium.ttf
-FileGroup1=Default Group
-FileGroup10=Nuevo Grupo
-FileGroup11=Nuevo Grupo
-FileGroup12=Nuevo Grupo
-FileGroup13=Nuevo Grupo
-FileGroup14=Nuevo Grupo
-FileGroup15=Default Group
-FileGroup2=Nuevo Grupo
-FileGroup3=Nuevo Grupo
-FileGroup4=Nuevo Grupo
-FileGroup5=Nuevo Grupo
-FileGroup6=Nuevo Grupo
-FileGroup7=Nuevo Grupo
-FileGroup8=Nuevo Grupo
-FileGroup9=Nuevo Grupo
+File1=AW.mp3
+File10=Roboto-Light.ttf
+File11=Roboto-LightItalic.ttf
+File12=Roboto-Medium.ttf
+File13=Roboto-MediumItalic.ttf
+File14=Roboto-Regular.ttf
+File15=RobotoSlab-VariableFont_wght.ttf
+File16=Roboto-Thin.ttf
+File17=Roboto-ThinItalic.ttf
+File18=SumaResta.bal
+File19=sumaresta10.png
+File2=Main.bal
+File20=sumaresta100.png
+File21=tablas.png
+File22=YR.mp3
+File3=Multi.bal
+File4=Multi100.png
+File5=Roboto-Black.ttf
+File6=Roboto-BlackItalic.ttf
+File7=Roboto-Bold.ttf
+File8=Roboto-BoldItalic.ttf
+File9=Roboto-Italic.ttf
+FileGroup1=Assets
+FileGroup10=Assets
+FileGroup11=Assets
+FileGroup12=Assets
+FileGroup13=Assets
+FileGroup14=Assets
+FileGroup15=Assets
+FileGroup16=Assets
+FileGroup17=Assets
+FileGroup18=Default Group
+FileGroup19=Assets
+FileGroup2=Default Group
+FileGroup20=Assets
+FileGroup21=Assets
+FileGroup22=Assets
+FileGroup3=Default Group
+FileGroup4=Assets
+FileGroup5=Assets
+FileGroup6=Assets
+FileGroup7=Assets
+FileGroup8=Assets
+FileGroup9=Assets
 Group=Default Group
 Library1=core
 Library2=xui
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
-Module1=Starter
-NumberOfFiles=15
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="30"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Mult
+Module2=Starter
+Module3=SumaResta
+Module4=Tools
+NumberOfFiles=22
 NumberOfLibraries=2
-NumberOfModules=1
+NumberOfModules=4
 Version=11.2
 @EndOfDesignText@
 #Region  Project Attributes 
@@ -51,20 +68,25 @@ Version=11.2
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: False
+	#BridgeLogger: True
 #End Region
 
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Private xui As XUI
+	Public btnVal As Byte
+	Public combo As Int = 0
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Main")
+	btnVal = 0
 End Sub
 
 Sub Activity_Resume
@@ -81,26 +103,17 @@ End Sub
 
 Private Sub ElegirActividad_Click
 	Dim btn As Button
-	Dim btnVal As Byte
-	
+
 	btn = Sender
 	btnVal = btn.Tag
-	
-	
+
 	Select btnVal
-		Case 1:
-			StartActivity("Suma1")
-		Case 2:
+		Case 1, 2:
+			StartActivity(SumaResta)
 			
-		Case 3:
-			
-		Case 4:
-			
+		Case 3, 4:
+			StartActivity(Mult)
+
 	End Select
 	
-End Sub
-
-Private Sub btnVolver_Click
-	
-	StartActivity("Layout")
 End Sub

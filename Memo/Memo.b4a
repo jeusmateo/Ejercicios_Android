@@ -1,0 +1,154 @@
+﻿Build1=Default,b4a.example
+File1=1.png
+File10=9.png
+File11=Layout.bal
+File2=10.png
+File3=2.png
+File4=3.png
+File5=4.png
+File6=5.png
+File7=6.png
+File8=7.png
+File9=8.png
+FileGroup1=Images
+FileGroup10=Images
+FileGroup11=Default Group
+FileGroup2=Images
+FileGroup3=Images
+FileGroup4=Images
+FileGroup5=Images
+FileGroup6=Images
+FileGroup7=Images
+FileGroup8=Images
+FileGroup9=Images
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=11
+NumberOfLibraries=2
+NumberOfModules=1
+Version=11.5
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Memorama
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+	#BridgeLogger: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	
+	Private numMemo(8) As Byte
+	Private pnlCartas As Panel
+	
+	Private paresTotales As Byte
+	Dim cartaLevantada As Byte 
+	
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	
+'	For Each btn As Button In pnlCartas
+'		btn.Visible
+'	Next
+	
+	pnlCartas.Visible = False
+
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub btnIniciar_Click
+	GenerateNums
+	pnlCartas.Visible = True
+	
+	Sender.As(Button).Visible = False
+	paresTotales = 0
+	cartaLevantada = 1
+	
+End Sub
+
+Private Sub ChecarCarta_Click
+	Dim	carta1, carta2 As Button
+	Dim carta1Val, carta2Val As Byte
+
+	
+	carta1 = Sender
+	carta1Val = carta1.Tag
+	
+	
+	carta1.SetBackgroundImage(LoadBitmap(File.DirAssets, numMemo(carta1Val) & ".png"))
+	
+	If cartaLevantada == 1 Then
+		carta2 = Sender
+		carta2Val = carta2.Tag
+		cartaLevantada = 2
+		
+	End If
+	
+	If numMemo(carta1Val) == numMemo(carta2Val) Then
+		paresTotales = paresTotales + 1
+		
+		If paresTotales == 4 Then
+			ToastMessageShow("HAS GANADO🤙", False)
+		Else
+			carta1.Background = Null
+			carta2.Background = Null
+		End If
+		cartaLevantada = 1
+	End If
+	
+	
+End Sub
+
+Private Sub GenerateNums
+	Dim contador As Byte
+	
+	For i = 0 To 7
+		numMemo(i) = Rnd(1, 5)
+		
+		If i >= 2 Then
+			contador = 0
+			For j = i - 1 To 0 Step -1
+				If numMemo(i) == numMemo(j) Then
+					contador = contador + 1
+				End If
+			Next
+		End If
+	
+		If contador == 2 Then
+			i = i - 1
+		End If
+	
+	
+	Next
+	
+	
+	
+End Sub
+
+
