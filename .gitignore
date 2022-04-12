@@ -1,3 +1,11 @@
+#Git will ignore the following files/folders: B4A
+bin/
+gen/
+src/
+*.apk
+*.dex
+*b4a.meta
+
 # Built application files
 *.apk
 *.ap_
