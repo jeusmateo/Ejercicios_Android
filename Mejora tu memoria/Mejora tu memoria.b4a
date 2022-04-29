@@ -1,0 +1,159 @@
+﻿Build1=Default,b4a.example
+File1=1f563cf99ae195fdd6635f3227091a64.jpg
+File10=images.jpg
+File11=Layout.bal
+File12=media_1fbfc62b371ebc53c7d80255cd7f35973675a89cd.png
+File13=Sin título.png
+File2=560852cd51d91a5c331514707e5628bf.jpg
+File3=aa96f4241753b9499b8c1eca3188bfa5.jpg
+File4=download (1).jpg
+File5=download (2).jpg
+File6=download (3).jpg
+File7=download (4).jpg
+File8=download (5).jpg
+File9=images (1).jpg
+FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup11=Default Group
+FileGroup12=Default Group
+FileGroup13=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=13
+NumberOfLibraries=2
+NumberOfModules=1
+Version=11.2
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Mejora tu memoria
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+	#BridgeLogger: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+'	Private timer As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private pnlMain As Panel
+	Private txtNum As EditText
+	Private lblNum As Label
+	
+	' Variables
+	Private contadorNivel, digitosRandom, aciertos, errores As Byte
+	Private time As Int
+	Private numRandom As String
+	
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	pnlMain.Visible = False
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Private Sub NuevoJuego
+	pnlMain.Visible = True
+	contadorNivel = 1
+	digitosRandom = contadorNivel + 2
+	aciertos = 0
+	errores = 0
+	
+	GenerarRandom
+	
+	txtNum.RequestFocus
+	
+	time = ( Logarithm(contadorNivel, 10) + 2) * 1000
+	
+'	timer.Initialize("timer", time)
+'	timer.Enabled = True
+	
+End Sub
+
+Private Sub timer_Tick
+	GenerarRandom
+End Sub
+
+Private Sub GenerarRandom
+	numRandom = ""
+	
+	For i = 1 To digitosRandom
+		numRandom = numRandom & Rnd(0, 10)
+	Next
+	
+	lblNum.Text = numRandom
+	Sleep(time)
+	lblNum.Text = ""
+	
+End Sub
+
+Private Sub ChecarNumero (userInput As String)
+	If userInput == numRandom Then
+		aciertos = aciertos + 1
+		
+		If aciertos = 5 Then
+			contadorNivel = contadorNivel + 1
+		End If
+		
+		ToastMessageShow("Correcto 🥳", False)
+	Else
+		aciertos = 0
+		errores = errores + 1
+		
+		If errores = 3 Then
+			Msgbox("Has quemado tus intentos", "Game Over")
+		End If
+		
+		ToastMessageShow("Incorrecto 😕", False)
+		
+	End If
+	
+	GenerarRandom
+	
+	txtNum.Text = ""
+
+End Sub
+
+
+
+Private Sub bntEnviar_Click
+	
+	If txtNum.Text == "" Then Return
+	
+	ChecarNumero(txtNum.Text)
+End Sub
+
+Private Sub btnIniciar_Click
+	NuevoJuego
+End Sub
