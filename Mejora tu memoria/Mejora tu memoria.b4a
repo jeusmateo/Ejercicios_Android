@@ -1,23 +1,39 @@
 ﻿Build1=Default,b4a.example
-File1=1f563cf99ae195fdd6635f3227091a64.jpg
-File10=images.jpg
-File11=Layout.bal
-File12=media_1fbfc62b371ebc53c7d80255cd7f35973675a89cd.png
-File13=Sin título.png
-File2=560852cd51d91a5c331514707e5628bf.jpg
-File3=aa96f4241753b9499b8c1eca3188bfa5.jpg
-File4=download (1).jpg
-File5=download (2).jpg
-File6=download (3).jpg
-File7=download (4).jpg
-File8=download (5).jpg
-File9=images (1).jpg
+File1=#3.wav
+File10=download (4).jpg
+File11=download (5).jpg
+File12=game_over_bad_chest.wav
+File13=gmae.wav
+File14=Gradient-Angry-Emoji-Transparent-Background.png
+File15=Happy-Emoji-PNG-Clipart.png
+File16=Happy-Emoji-PNG-Transparent-Image.png
+File17=images (1).jpg
+File18=images.jpg
+File19=Layout.bal
+File2=026b50d33e921dc308fd3834a03dfd57.jpg
+File20=media_1fbfc62b371ebc53c7d80255cd7f35973675a89cd.png
+File21=Wrong Error.wav
+File3=1f563cf99ae195fdd6635f3227091a64.jpg
+File4=560852cd51d91a5c331514707e5628bf.jpg
+File5=aa96f4241753b9499b8c1eca3188bfa5.jpg
+File6=completetask_0.mp3
+File7=download (1).jpg
+File8=download (2).jpg
+File9=download (3).jpg
 FileGroup1=Default Group
 FileGroup10=Default Group
 FileGroup11=Default Group
 FileGroup12=Default Group
 FileGroup13=Default Group
+FileGroup14=Default Group
+FileGroup15=Default Group
+FileGroup16=Default Group
+FileGroup17=Default Group
+FileGroup18=Default Group
+FileGroup19=Default Group
 FileGroup2=Default Group
+FileGroup20=Default Group
+FileGroup21=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
 FileGroup5=Default Group
@@ -30,7 +46,7 @@ Library1=core
 Library2=xui
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
 Module1=Starter
-NumberOfFiles=13
+NumberOfFiles=21
 NumberOfLibraries=2
 NumberOfModules=1
 Version=11.2
@@ -46,7 +62,7 @@ Version=11.2
 
 #Region  Activity Attributes 
 	#FullScreen: False
-	#IncludeTitle: True
+	#IncludeTitle: False
 	#BridgeLogger: True
 #End Region
 
@@ -54,17 +70,23 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Private xui As XUI
-'	Private timer As Timer
+	Private aciertoSfx, nivelSfx, errorSfx, gameOverSfx As MediaPlayer
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	Private pnlMain As Panel
+	Private pnlAciertos As Panel
+	Private pnlErrores As Panel
+	Private pnlScreen As Panel
 	Private txtNum As EditText
 	Private lblNum As Label
+	Private lblNivel As Label
+	Private bntEnviar As Button
+	Private btnIniciar As Button
 	
 	' Variables
-	Private contadorNivel, digitosRandom, aciertos, errores As Byte
+	Private contadorNivel, aciertoS, errores As Byte
 	Private time As Int
 	Private numRandom As String
 	
@@ -73,6 +95,16 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
 	pnlMain.Visible = False
+	
+	aciertoSfx.Initialize2("aciertosSfx")
+	aciertoSfx.Load(File.DirAssets, "completetask_0.mp3")
+	nivelSfx.Initialize2("nivelSfx")
+	nivelSfx.Load(File.DirAssets, "gmae.wav")
+	errorSfx.Initialize2("errorSfx")
+	errorSfx.Load(File.DirAssets, "#3.wav")	
+	gameOverSfx.Initialize2("gameoverSfx")
+	gameOverSfx.Load(File.DirAssets, "game_over_bad_chest.wav")
+	
 End Sub
 
 Sub Activity_Resume
@@ -83,77 +115,163 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
+private Sub Clamp(minimum As Double, maximum As Double, value As Double) As Double
+	Return Max(minimum, Min(maximum, value))
+End Sub
+
 Private Sub NuevoJuego
 	pnlMain.Visible = True
 	contadorNivel = 1
-	digitosRandom = contadorNivel + 2
-	aciertos = 0
+	aciertoS = 0
 	errores = 0
 	
+	
+	For Each b4xView As B4XView In pnlAciertos
+		b4xView.Visible = False
+	Next
+	
+	For Each b4xView As B4XView In pnlErrores
+		b4xView.Visible = False
+	Next
+
 	GenerarRandom
-	
-	txtNum.RequestFocus
-	
-	time = ( Logarithm(contadorNivel, 10) + 2) * 1000
-	
-'	timer.Initialize("timer", time)
-'	timer.Enabled = True
 	
 End Sub
 
-Private Sub timer_Tick
-	GenerarRandom
-End Sub
+
 
 Private Sub GenerarRandom
 	numRandom = ""
 	
-	For i = 1 To digitosRandom
+	For i = 1 To contadorNivel + 2
 		numRandom = numRandom & Rnd(0, 10)
 	Next
+
+	time = Floor((3.5 * Logarithm(contadorNivel, 8) + 1.5) * 1000)
+	Log(time)
 	
 	lblNum.Text = numRandom
-	Sleep(time)
-	lblNum.Text = ""
+	txtNum.Visible = False
+	bntEnviar.Visible = False
 	
+	Log(numRandom)
+	Sleep(time + 500)
+	
+	lblNum.Text = ""
+	bntEnviar.Visible = True
+	txtNum.Visible = True
+	txtNum.Text = ""
+	txtNum.RequestFocus
+	lblNivel.Text = "Nivel" & CRLF & contadorNivel
+
 End Sub
 
-Private Sub ChecarNumero (userInput As String)
-	If userInput == numRandom Then
-		aciertos = aciertos + 1
+
+Private Sub Acierto
+	pnlAciertos.GetView(aciertoS ).As(B4XView).Visible = True
+	aciertoSfx.Play
+	aciertoS = aciertoS + 1
+	Log("Aciertos: " & aciertoS)
 		
-		If aciertos = 5 Then
-			contadorNivel = contadorNivel + 1
+	If aciertoS == 5 Then 'CAMBIARLO A 5 TEST ONLY
+
+		contadorNivel = contadorNivel + 1
+		If contadorNivel > 8 Then
+			MsgboxAsync("Tienes una excelente memoria 😮", "Mensaje")
+			GameOver
+			Return
 		End If
+		lblNivel.Text = "Nivel" & CRLF & contadorNivel
+		aciertoS = 0
+		errores = 0
+		For Each b4xView As B4XView In pnlErrores
+			b4xView.Visible = False
+		Next
 		
-		ToastMessageShow("Correcto 🥳", False)
-	Else
-		aciertos = 0
-		errores = errores + 1
+		For Each b4xView As B4XView In pnlAciertos
+			b4xView.Visible = False
+		Next
 		
-		If errores = 3 Then
-			Msgbox("Has quemado tus intentos", "Game Over")
-		End If
-		
-		ToastMessageShow("Incorrecto 😕", False)
+		ToastMessageShow(" ¡Aumentas de nivel !", False)
+		nivelSfx.Play
+		Return
 		
 	End If
 	
+	ToastMessageShow("✨🥳Correcto 🥳✨", False)
+End Sub
+
+
+Private Sub Error
+	pnlErrores.GetView(errores).As(B4XView).Visible = True
+	
+	errores = errores + 1
+	aciertoS = 0
+	lblNivel.Text = "Nivel" & CRLF & contadorNivel
+	
+	For Each b4xView As B4XView In pnlAciertos
+		b4xView.Visible = False
+	Next
+	
+		
+	Log("Errores: " & errores)
+	
+	If errores = 3 Then
+'		GameOver
+'		Msgbox("Has quemado tus intentos", "❌ Game Over ❌")
+		contadorNivel = Clamp(1, 10, contadorNivel - 1)
+
+		If contadorNivel > 1 Then 		
+			ToastMessageShow("⚠ Bajas de nivel ⚠" , False)
+		End If
+		gameOverSfx.Play
+		
+		errores = 0
+		For Each b4xView As B4XView In pnlErrores
+			b4xView.Visible = False
+		Next
+		Return
+	End If
+		
+	ToastMessageShow("Incorrecto 😕👎", False)
+	errorSfx.Play
+
+End Sub
+
+Private Sub GameOver
+	txtNum.Text = ""
+	lblNivel.Text = ""
+	lblNum.Text = ""
+	gameOverSfx.Play
+	pnlMain.Visible = False
+	btnIniciar.Visible = True
+End Sub
+
+
+Private Sub ChecarNumero (userInput As String)
+	If userInput == numRandom Then
+		Acierto
+	Else
+		Error
+	End If
+
 	GenerarRandom
 	
-	txtNum.Text = ""
-
 End Sub
 
 
 
 Private Sub bntEnviar_Click
 	
-	If txtNum.Text == "" Then Return
+	If txtNum.Text == "" Then 
+		ToastMessageShow("⚠ Digite un numero ⚠", False)
+		Return
+	End If
 	
 	ChecarNumero(txtNum.Text)
 End Sub
 
 Private Sub btnIniciar_Click
 	NuevoJuego
+	Sender.As(Button).Visible = False
 End Sub
