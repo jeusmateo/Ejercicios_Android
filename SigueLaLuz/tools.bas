@@ -28,3 +28,24 @@ Public Sub MessageLogger(message As String)
 	Log(message)
 	ToastMessageShow(message, False)
 End Sub
+
+Public Sub SetButtonTags(panel As Panel)
+	For i = 0 To panel.NumberOfViews - 1
+		panel.GetView(i).Tag = i
+		panel.GetView(i).As(Button).Text = i
+	Next
+End Sub
+
+Public Sub ButtonState(panel As Panel, bool As Boolean)
+	For Each view As B4XView In panel
+		view.Enabled = bool
+	Next
+End Sub
+
+
+Public Sub setColorViews(panel As Panel, colorBg As ColorDrawable)
+	For Each view As Button In panel
+		view.Background = colorBg
+		view.TextColor = Colors.RGB(242, 242, 247)
+	Next
+End Sub

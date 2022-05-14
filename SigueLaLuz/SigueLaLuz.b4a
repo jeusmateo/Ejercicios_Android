@@ -36,14 +36,27 @@ End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
-	Private time As Byte
-'	Dim	level As Byte
+	Private time, btnCount, level As Byte
 	Private pnlMain As Panel
 	Private lightsList As List
+	Private btnJugar As Button
+	
+	Private blackColor, lightColor, correctColor, wrongColor As ColorDrawable
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
+	
+	blackColor.Initialize(Colors.RGB(28, 28, 30), 16)
+	lightColor.Initialize(Colors.RGB(255, 204, 0), 16)
+	correctColor.Initialize(Colors.RGB(52, 199, 89), 16)
+	wrongColor.Initialize(Colors.RGB(255, 59, 48), 16)
+	
+	
+	tools.SetButtonTags(pnlMain)
+	tools.ButtonState(pnlMain, False)
+	tools.setColorViews(pnlMain, blackColor)
 End Sub
 
 Sub Activity_Resume
@@ -54,61 +67,69 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-Private Sub mainTimer_Tick
+Private Sub mainTimer_Tick 'BORRADOR
 	If time > lightsList.Size Then
 		timer.Enabled = False
+		tools.MessageLogger("DESACTIVADO")
 		Return
 	End If
 	
 	Log("Tiempo: " & time)
 	
-	
 	If time < lightsList.Size And (time Mod 2) == 0 Then
-		pnlMain.GetView(lightsList.Get(time)).Color = Colors.Yellow
+		pnlMain.GetView(lightsList.Get(time)).Background = lightColor
 		Log("Luz encendida: " & lightsList.Get(time))
 	End If
 	
 	If time Mod 2 == 1 Then
-		pnlMain.GetView(lightsList.Get(time - 1)).Color = Colors.LightGray
+		pnlMain.GetView(lightsList.Get(time - 1)).Background = blackColor
 	End If
-	
-'	If time > 0 Then
-'		pnlMain.GetView(lightsList.Get(time - 1)).Color = Colors.LightGray
-'		Log("Apagado: " & lightsList.Get(time -1))
-'	End If
-'	
 
 	time = time + 1
-'	
-'	
-'	If time >= pnlMain.NumberOfViews Then Return
-'	
-'	If time > 0 Then
-'		pnlMain.GetView(time - 1).Color = Colors.LightGray
-'	End If
-	'
-'	If time = pnlMain.NumberOfViews - 1 Then
-'		pnlMain.GetView(time).Color = Colors.LightGray
-'	End If
-'	
-'	pnlMain.GetView(time).Color = Colors.Yellow
-'	
-'	
-'	time = time + 1
+
+End Sub
+
+Private Sub ShowLights
+	time = 0
+	lightsList = tools.GenerateRandomPlaces(level, pnlMain.NumberOfViews - 1)
+	tools.MessageLogger(lightsList)
+	timer.Enabled = True
 End Sub
 
 Private Sub btnJugar_Click
-	Dim level As Byte = 1
-	time = 0
+	Sender.As(Button).Visible = False
+	tools.ButtonState(pnlMain, True)
+	tools.setColorViews(pnlMain, blackColor)
+
+	level = 1
+	btnCount = 0
 	timer.Initialize("mainTimer", 500)
-	
-	lightsList = tools.GenerateRandomPlaces(level, pnlMain.NumberOfViews - 1)
-	tools.MessageLogger(lightsList)
-	
-	timer.Enabled = True
+	ShowLights	
 
 End Sub
 
 
 
+Private Sub CheckResult_Click
+	Dim btn As Button = Sender
+	Dim bntVal As Byte = btn.Tag
+	
+	If bntVal == lightsList.Get(btnCount * 2) Then
+		btn.Background = correctColor
+		btnCount = btnCount + 1
+		If btnCount >= level + 2 Then
+			btnCount = 0
+			ShowLights
+			tools.setColorViews(pnlMain, blackColor)
 
+		End If
+		
+	Else
+		btn.Background = wrongColor
+		btnCount = 0
+		btnJugar.Visible = True
+		tools.ButtonState(pnlMain, False)
+		
+	End If
+	
+End Sub
