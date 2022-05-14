@@ -1,0 +1,114 @@
+﻿Build1=Default,b4a.example
+File1=Layout.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="30"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+Module2=tools
+NumberOfFiles=1
+NumberOfLibraries=2
+NumberOfModules=2
+Version=11.5
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Sigue la Luz
+	#VersionCode: 1
+	#VersionName: 0.0.1
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: False
+	#BridgeLogger: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+	Private timer As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private time As Byte
+'	Dim	level As Byte
+	Private pnlMain As Panel
+	Private lightsList As List
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Private Sub mainTimer_Tick
+	If time > lightsList.Size Then
+		timer.Enabled = False
+		Return
+	End If
+	
+	Log("Tiempo: " & time)
+	
+	
+	If time < lightsList.Size And (time Mod 2) == 0 Then
+		pnlMain.GetView(lightsList.Get(time)).Color = Colors.Yellow
+		Log("Luz encendida: " & lightsList.Get(time))
+	End If
+	
+	If time Mod 2 == 1 Then
+		pnlMain.GetView(lightsList.Get(time - 1)).Color = Colors.LightGray
+	End If
+	
+'	If time > 0 Then
+'		pnlMain.GetView(lightsList.Get(time - 1)).Color = Colors.LightGray
+'		Log("Apagado: " & lightsList.Get(time -1))
+'	End If
+'	
+
+	time = time + 1
+'	
+'	
+'	If time >= pnlMain.NumberOfViews Then Return
+'	
+'	If time > 0 Then
+'		pnlMain.GetView(time - 1).Color = Colors.LightGray
+'	End If
+	'
+'	If time = pnlMain.NumberOfViews - 1 Then
+'		pnlMain.GetView(time).Color = Colors.LightGray
+'	End If
+'	
+'	pnlMain.GetView(time).Color = Colors.Yellow
+'	
+'	
+'	time = time + 1
+End Sub
+
+Private Sub btnJugar_Click
+	Dim level As Byte = 1
+	time = 0
+	timer.Initialize("mainTimer", 500)
+	
+	lightsList = tools.GenerateRandomPlaces(level, pnlMain.NumberOfViews - 1)
+	tools.MessageLogger(lightsList)
+	
+	timer.Enabled = True
+
+End Sub
+
+
+
+
