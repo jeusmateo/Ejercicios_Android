@@ -1,14 +1,19 @@
 ﻿Build1=Default,b4a.example
-File1=Layout.bal
-FileGroup1=Default Group
+File1=acierto2.wav
+File2=Layout.bal
+File3=main.bal
+FileGroup1=Assets
+FileGroup2=Default Group
+FileGroup3=Default Group
 Group=Default Group
 Library1=core
 Library2=xui
+Library3=audio
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="30"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
 Module1=Starter
 Module2=tools
-NumberOfFiles=1
-NumberOfLibraries=2
+NumberOfFiles=3
+NumberOfLibraries=3
 NumberOfModules=2
 Version=11.5
 @EndOfDesignText@
@@ -32,6 +37,8 @@ Sub Process_Globals
 	'These variables can be accessed from all modules.
 	Private xui As XUI
 	Private timer As Timer
+	Private acierto As MediaPlayer
+	Private sonido As Beeper
 End Sub
 
 Sub Globals
@@ -40,19 +47,21 @@ Sub Globals
 	Private pnlMain As Panel
 	Private lightsList As List
 	Private btnJugar As Button
-	
 	Private blackColor, lightColor, correctColor, wrongColor As ColorDrawable
-	
+	Private lvlPrefix As String
+	Private lblLevel As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("Layout")
-	
+	acierto.Initialize
+	acierto.Load(File.DirAssets, "acierto2.wav")
 	blackColor.Initialize(Colors.RGB(28, 28, 30), 16)
 	lightColor.Initialize(Colors.RGB(255, 204, 0), 16)
 	correctColor.Initialize(Colors.RGB(52, 199, 89), 16)
 	wrongColor.Initialize(Colors.RGB(255, 59, 48), 16)
 	
+	lvlPrefix = "Nivel: "
 	
 	tools.SetButtonTags(pnlMain)
 	tools.ButtonState(pnlMain, False)
@@ -68,17 +77,21 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 Private Sub mainTimer_Tick 'BORRADOR
-	If time > lightsList.Size Then
+	If time >= lightsList.Size Then
 		timer.Enabled = False
-		tools.MessageLogger("DESACTIVADO")
+		tools.ButtonState(pnlMain, True)
+'		tools.MessageLogger("DESACTIVADO")
+		ToastMessageShow("¡VAMOS!", False)
 		Return
 	End If
 	
-	Log("Tiempo: " & time)
+'	Log("Tiempo: " & time)
 	
 	If time < lightsList.Size And (time Mod 2) == 0 Then
 		pnlMain.GetView(lightsList.Get(time)).Background = lightColor
-		Log("Luz encendida: " & lightsList.Get(time))
+		sonido.Initialize(125, (time * 50) + 500)
+		sonido.Beep
+'		Log("Luz encendida: " & lightsList.Get(time))
 	End If
 	
 	If time Mod 2 == 1 Then
@@ -92,16 +105,19 @@ End Sub
 Private Sub ShowLights
 	time = 0
 	lightsList = tools.GenerateRandomPlaces(level, pnlMain.NumberOfViews - 1)
-	tools.MessageLogger(lightsList)
+	tools.ButtonState(pnlMain, False)
+'	tools.MessageLogger(lightsList)
 	timer.Enabled = True
 End Sub
 
 Private Sub btnJugar_Click
 	Sender.As(Button).Visible = False
+
 	tools.ButtonState(pnlMain, True)
 	tools.setColorViews(pnlMain, blackColor)
 
 	level = 1
+	lblLevel.Text = lvlPrefix & level
 	btnCount = 0
 	timer.Initialize("mainTimer", 500)
 	ShowLights	
@@ -115,10 +131,13 @@ Private Sub CheckResult_Click
 	Dim bntVal As Byte = btn.Tag
 	
 	If bntVal == lightsList.Get(btnCount * 2) Then
+		acierto.Play
 		btn.Background = correctColor
 		btnCount = btnCount + 1
-		If btnCount >= level + 2 Then
+		If btnCount >= level + 4 Then
 			btnCount = 0
+			level = level + 1
+			lblLevel.Text = lvlPrefix & level
 			ShowLights
 			tools.setColorViews(pnlMain, blackColor)
 

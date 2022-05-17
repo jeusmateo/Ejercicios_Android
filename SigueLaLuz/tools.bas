@@ -13,7 +13,7 @@ Sub Process_Globals
 End Sub
 
 Public Sub GenerateRandomPlaces(level As Byte, limit As Byte) As Byte()
-	Dim randomPlaces((level + 2) * 2) As Byte
+	Dim randomPlaces((level + 4) * 2) As Byte
 	
 	For i = 0 To randomPlaces.Length - 1
 		If i Mod 2 == 0 Then
@@ -32,7 +32,7 @@ End Sub
 Public Sub SetButtonTags(panel As Panel)
 	For i = 0 To panel.NumberOfViews - 1
 		panel.GetView(i).Tag = i
-		panel.GetView(i).As(Button).Text = i
+		panel.GetView(i).As(Button).Text = i + 1
 	Next
 End Sub
 
@@ -46,6 +46,7 @@ End Sub
 Public Sub setColorViews(panel As Panel, colorBg As ColorDrawable)
 	For Each view As Button In panel
 		view.Background = colorBg
-'		view.TextColor = Colors.RGB(242, 242, 247)
+		view.TextColor = Colors.RGB(242, 242, 247)
+'		view.TextColor = Colors.RGB(28, 28, 30)
 	Next
 End Sub
