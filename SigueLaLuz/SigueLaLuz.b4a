@@ -84,22 +84,16 @@ Private Sub mainTimer_Tick 'BORRADOR
 		ToastMessageShow("¡VAMOS!", False)
 		Return
 	End If
-	
-'	Log("Tiempo: " & time)
-	
-	If time < lightsList.Size And (time Mod 2) == 0 Then
+
+	If time Mod 2 == 0 Then
 		pnlMain.GetView(lightsList.Get(time)).Background = lightColor
-		sonido.Initialize(125, (time * 50) + 500)
+		sonido.Initialize(250, (time * 50) + 500)
 		sonido.Beep
-'		Log("Luz encendida: " & lightsList.Get(time))
-	End If
-	
-	If time Mod 2 == 1 Then
+	Else
 		pnlMain.GetView(lightsList.Get(time - 1)).Background = blackColor
 	End If
 
 	time = time + 1
-
 End Sub
 
 Private Sub ShowLights
@@ -124,8 +118,6 @@ Private Sub btnJugar_Click
 
 End Sub
 
-
-
 Private Sub CheckResult_Click
 	Dim btn As Button = Sender
 	Dim bntVal As Byte = btn.Tag
@@ -140,7 +132,6 @@ Private Sub CheckResult_Click
 			lblLevel.Text = lvlPrefix & level
 			ShowLights
 			tools.setColorViews(pnlMain, blackColor)
-
 		End If
 		
 	Else
