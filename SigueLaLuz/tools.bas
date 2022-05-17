@@ -46,6 +46,6 @@ End Sub
 Public Sub setColorViews(panel As Panel, colorBg As ColorDrawable)
 	For Each view As Button In panel
 		view.Background = colorBg
-		view.TextColor = Colors.RGB(242, 242, 247)
+'		view.TextColor = Colors.RGB(242, 242, 247)
 	Next
 End Sub
